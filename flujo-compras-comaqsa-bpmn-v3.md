@@ -68,5 +68,3 @@ AG --> AI[Cerrar OC cuando pago esta ejecutado]
 
 ## Notas
 
-- Todo el texto esta en ASCII simple, sin acentos ni etiquetas HTML.
-- El diagrama esta diseñado para renderizarse correctamente en GitHub dentro de un archivo .md.
