@@ -1,11 +1,3 @@
-# Flujo de Compras COMAQSA – BPMN (Mermaid) – Version Actualizada
-
-Esta versión incorpora la regla correcta:
-
-**➡ Las OC a crédito se cierran cuando el pago está PROGRAMADO, no cuando se paga.**
-
----
-
 ```mermaid
 flowchart TD
 
@@ -24,7 +16,7 @@ I -->|<=20000| J[Autoriza Jefe de area]
 I -->|20001-50000| K[Autoriza Director de area]
 I -->|>50000| L[Autoriza Director General]
 
-J --> M[Convertir a OC Normal Autorizada]
+J --> M[Convertir a OC Normal]
 K --> M
 L --> M
 
@@ -32,10 +24,10 @@ M --> N[Recepcion Formal]
 N --> O[Registrar Factura]
 
 O --> P{Credito o Contado}
-P -->|Credito| Q[Programar pago<br/>CxP]
+P -->|Credito| Q[Programar pago]
 P -->|Contado| R[Pagar]
 
-Q --> S[Cerrar OC<br/>(cuando pago esta programado)]
+Q --> S[Cerrar OC cuando pago esta programado]
 R --> S
 
 %% FLUJO NORMAL
@@ -56,16 +48,9 @@ AA --> AB[Recepcion Formal]
 AB --> AC[Registrar Factura]
 
 AC --> AD{Credito o Contado}
-AD -->|Credito| AE[Programar pago<br/>CxP]
+AD -->|Credito| AE[Programar pago]
 AD -->|Contado| AF[Pagar]
 
-AE --> AG[Cerrar OC<br/>(cuando pago esta programado)]
+AE --> AG[Cerrar OC cuando pago esta programado]
 AF --> AG
 ```
-
----
-
-## Notas
-- En compras a crédito, la OC se **cierra cuando el pago está PROGRAMADO**, no cuando se paga.
-- La factura queda en módulo de **CxP** hasta liquidación.
-- El BPMN es 100% compatible con GitHub.
