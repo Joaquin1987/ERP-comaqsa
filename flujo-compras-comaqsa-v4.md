@@ -44,17 +44,19 @@ El ERP evita avanzar a OC normal si no se cumple con estas cotizaciones.
 10. Cierre al programar pago  
 
 ## 2. Orden Normal + Contado
-1. Requisicion  
-2. Validacion tecnica  
-3. Cotizaciones  
-4. Autorizacion  
-5. OC normal  
-6. No se puede enviar OC hasta pagar  
-7. Pago ejecutado  
-8. Envio  
-9. Recepcion formal  
-10. Factura  
-11. Cierre al pagar  
+
+1. Requisicion
+2. Validacion tecnica
+3. Cotizaciones
+4. Autorizacion
+5. OC normal generada
+6. No se puede enviar OC al proveedor hasta pagar
+7. Pago ejecutado (solo para liberar el material)
+8. Envio liberado por proveedor
+9. Recepcion formal en almacen
+10. Factura recibida y capturada
+11. Conciliacion recepcion vs factura
+12. Cierre DEFINITIVO de OC
 
 ## 3. Orden Critica + Credito
 1. Requisicion marcada critico  
