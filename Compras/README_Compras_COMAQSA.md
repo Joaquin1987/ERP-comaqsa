@@ -179,7 +179,6 @@ Garantizar que todas las compras —normales o críticas, de contado o crédito�
 13. Conciliación
 14. Cierre
  
-
 ### **4️⃣ Crítico + Contado**
 1. Requisición
    * Solicitud formal del bien/servicio.
@@ -211,9 +210,7 @@ Garantizar que todas las compras —normales o críticas, de contado o crédito�
 14. Factura
 15. Conciliación
 16. Cierre
-
 ---
-
 ## Lógica del Sistema (para desarrolladores)
 
 ### **Estados que debe manejar una OC**
