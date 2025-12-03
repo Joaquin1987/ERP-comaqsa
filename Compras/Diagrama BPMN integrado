@@ -1,133 +1,67 @@
-# BPMN – Flujo Completo Integrado del Proceso de Compras COMAQSA
+# Proceso de compras COMAQSA - Diagrama Mermaid
 
-Este diagrama integra los **4 flujos maestros**:
+Este documento muestra el flujo oficial del proceso de compras de COMAQSA,
+incluyendo los 4 flujos maestros y la regla de conciliacion tripartita
+(Recepcion + Factura + Pago/CxP) antes del cierre de la OC.
 
-- Normal + Crédito  
-- Normal + Contado  
-- Crítico + Crédito  
-- Crítico + Contado  
-
-> NOTA GENERAL  
-> - Toda compra termina en conciliación tripartita: OC vs Recepción, OC vs Factura, Factura vs Pago/CxP.  
-> - No existe “cierre al pagar”; el cierre solo ocurre con conciliación completa.  
-> - Se respetan rangos de cotizaciones y de autorización por montos.
+> Nota: Se usan solo caracteres sin acentos para evitar problemas de compatibilidad.
 
 ```mermaid
 flowchart TD
+  %% Proceso de Compras COMAQSA - basado en documento oficial
 
-%% ========= NODO INICIAL =========
-INICIO([Inicio proceso de compra])
+  start((Inicio))
+  start --> R1[Requisicion]
+  R1 --> VT[Validacion tecnica]
+  VT --> G_tipo{Compra critica?}
 
-%% ========= DECISIÓN TIPO DE COMPRA =========
-TIPO_COMPRA{¿Compra\nnormal o crítica?}
+  %% ---------- FLUJO NORMAL ----------
+  G_tipo -->|No, normal| N_COT[Cotizaciones segun monto]
+  N_COT --> N_AUT[Autorizacion por montos]
+  N_AUT --> N_OC[OC normal]
+  N_OC --> G_pago_normal{Credito o contado?}
 
-INICIO --> TIPO_COMPRA
+  %% Normal + Credito
+  G_pago_normal -->|Credito| N_CR_ENT[Entrega]
+  N_CR_ENT --> N_CR_REC[Recepcion formal]
+  N_CR_REC --> N_CR_FAC[Factura]
+  N_CR_FAC --> N_CR_PAGO[Programar pago (CxP)]
+  N_CR_PAGO --> N_CR_CONC[Conciliacion tripartita]
+  N_CR_CONC --> N_CR_CIERRE[Cierre de la OC]
 
-%% ========= FLUJO NORMAL (COMPARTIDO) =========
-N_REQ[Requisición] 
-N_VT[Validación técnica]
-N_COT[Cotizaciones según monto]
-N_AUT[Autorización por montos]
-N_OC[OC normal autorizada]
+  %% Normal + Contado
+  G_pago_normal -->|Contado| N_CO_PAGO[Pago]
+  N_CO_PAGO --> N_CO_ENT[Entrega]
+  N_CO_ENT --> N_CO_REC[Recepcion formal]
+  N_CO_REC --> N_CO_FAC[Factura]
+  N_CO_FAC --> N_CO_CONC[Conciliacion tripartita]
+  N_CO_CONC --> N_CO_CIERRE[Cierre de la OC]
 
-%% Notas de reglas
-N_NOTA_COT[Nota:\n- Hasta $5,000 → 1 cotización\n- $5,001 a $15,000 → 2 cotizaciones\n- Más de $15,000 → 3 cotizaciones + comparativo]
-N_NOTA_AUT[Nota:\n- Hasta $20,000 → Jefe de Área\n- $20,001 a $50,000 → Director de Área\n- Más de $50,000 → Director General]
+  %% ---------- FLUJOS CRITICOS ----------
+  G_tipo -->|Si, critica| C_REQ[Requisicion critica]
+  C_REQ --> C_OC_PRE[OC preliminar]
+  C_OC_PRE --> G_anticipo{Proveedor exige anticipo o pago?}
 
-class N_NOTA_COT,N_NOTA_AUT note;
+  %% Critico + Credito (sin pago previo)
+  G_anticipo -->|No (Credito)| CC_ENT[Entrega sin pago]
+  CC_ENT --> CC_REC_PRE[Recepcion preliminar]
+  CC_REC_PRE --> CC_PRECIO[Definir precio final]
+  CC_PRECIO --> CC_AUT_RET[Autorizacion retroactiva]
+  CC_AUT_RET --> CC_OC_NORM[Convertir a OC normal]
+  CC_OC_NORM --> CC_FAC[Factura]
+  CC_FAC --> CC_PROG[Programar pago (CxP)]
+  CC_PROG --> CC_CONC[Conciliacion tripartita]
+  CC_CONC --> CC_CIERRE[Cierre de la OC]
 
-TIPO_COMPRA -- "Normal" --> N_REQ
-N_REQ --> N_VT --> N_COT --> N_AUT --> N_OC
-N_COT --- N_NOTA_COT
-N_AUT --- N_NOTA_AUT
-
-%% ========= DECISIÓN PAGO NORMAL (CRÉDITO / CONTADO) =========
-N_TIPO_PAGO{¿Pago\ncrédito o contado?}
-N_OC --> N_TIPO_PAGO
-
-%% ------- NORMAL + CRÉDITO -------
-N_ENT_NC[Entrega]
-N_REC_NC[Recepción formal]
-N_FAC_NC[Factura]
-N_PROG_NC[Programar pago\n(Documentos por Pagar - CxP)]
-
-N_TIPO_PAGO -- "Crédito" --> N_ENT_NC
-N_ENT_NC --> N_REC_NC --> N_FAC_NC --> N_PROG_NC
-
-%% ------- NORMAL + CONTADO -------
-N_PAGO_NCO[Pago de contado]
-N_ENT_NCO[Entrega]
-N_REC_NCO[Recepción formal]
-N_FAC_NCO[Factura]
-
-N_TIPO_PAGO -- "Contado" --> N_PAGO_NCO
-N_PAGO_NCO --> N_ENT_NCO --> N_REC_NCO --> N_FAC_NCO
-
-%% ========= FLUJO CRÍTICO (COMPARTIDO) =========
-C_REQ[Requisición crítica]
-C_OC_PRE[OC preliminar]
-
-TIPO_COMPRA -- "Crítica" --> C_REQ
-C_REQ --> C_OC_PRE
-
-%% ========= DECISIÓN PAGO CRÍTICO (CRÉDITO / CONTADO) =========
-C_TIPO_PAGO{¿Pago\ncrédito o contado?}
-C_OC_PRE --> C_TIPO_PAGO
-
-%% ------- CRÍTICO + CRÉDITO -------
-C_ENT_CC[Entrega sin pago]
-C_REC_PRE_CC[Recepción preliminar]
-C_PRECIO_CC[Definir precio final]
-C_AUT_RETRO_CC[Autorización retroactiva]
-C_CONV_OC_CC[Convertir a OC normal]
-C_FAC_CC[Factura]
-C_PROG_CC[Programar pago (CxP)]
-
-C_TIPO_PAGO -- "Crédito" --> C_ENT_CC
-C_ENT_CC --> C_REC_PRE_CC --> C_PRECIO_CC --> C_AUT_RETRO_CC --> C_CONV_OC_CC --> C_FAC_CC --> C_PROG_CC
-
-%% Nota recepción preliminar
-C_NOTA_REC_PRE[Nota:\nRecepción preliminar sin precio final.\nDebe validarse en máximo 72 horas.]
-class C_NOTA_REC_PRE note;
-C_REC_PRE_CC --- C_NOTA_REC_PRE
-
-%% ------- CRÍTICO + CONTADO -------
-C_PROV_EXIGE[Proveedor exige\nanticipo o pago]
-C_PAGO_ANT[Pago anticipado o total]
-C_ENT_CC2[Entrega / servicio]
-C_REC_CC2[Recepción preliminar o formal]
-C_PRECIO_CC2[Definir precio final]
-C_AUT_RETRO_CC2[Autorización retroactiva]
-C_CONV_OC_CC2[Convertir a OC normal]
-C_PAGO_COMP[Pago complementario\n(si aplica)]
-C_FAC_CC2[Factura]
-
-C_TIPO_PAGO -- "Contado" --> C_PROV_EXIGE
-C_PROV_EXIGE --> C_PAGO_ANT --> C_ENT_CC2 --> C_REC_CC2 --> C_PRECIO_CC2 --> C_AUT_RETRO_CC2 --> C_CONV_OC_CC2 --> C_PAGO_COMP --> C_FAC_CC2
-
-%% ========= CONCILIACIÓN TRIPARTITA =========
-CONC_OC_REC[Conciliar\nOC vs Recepción]
-CONC_OC_FAC[Conciliar\nOC vs Factura]
-CONC_FAC_PAG[Conciliar\nFactura vs Pago / CxP]
-G_CONC{¿Conciliación\ncompleta?}
-CIERRE[CIERRE de la OC]
-
-%% Llegadas a conciliación desde los 4 flujos
-N_PROG_NC --> CONC_OC_REC
-N_FAC_NCO --> CONC_OC_REC
-C_PROG_CC --> CONC_OC_REC
-C_FAC_CC2 --> CONC_OC_REC
-
-%% Secuencia de conciliación
-CONC_OC_REC --> CONC_OC_FAC --> CONC_FAC_PAG --> G_CONC
-
-G_CONC -- "Sí" --> CIERRE
-G_CONC -- "No" --> CONC_OC_REC
-
-%% Nota final de regla maestra
-NOTA_CIERRE[Regla maestra:\nUna OC solo puede cerrarse cuando:\n1) OC vs Recepción concilian.\n2) OC vs Factura concilian.\n3) Factura vs Pago (contado) o CxP (crédito) concilian.\nNo existe 'cierre al pagar'.]
-class NOTA_CIERRE note;
-CIERRE --- NOTA_CIERRE
-
-%% ========= CLASE NOTAS =========
-classDef note fill:#e7f5ff,stroke:#74c0fc,color:#1864ab;
+  %% Critico + Contado (con anticipo/pago)
+  G_anticipo -->|Si (Contado)| C_PAGO_ANT[Pago anticipado o total]
+  C_PAGO_ANT --> C_ENT[Entrega / servicio]
+  C_ENT --> C_REC[Recepcion preliminar o formal]
+  C_REC --> C_PRECIO[Definir precio final]
+  C_PRECIO --> C_AUT_RET[Autorizacion retroactiva]
+  C_AUT_RET --> C_OC_NORM2[Convertir a OC normal]
+  C_OC_NORM2 --> C_PAGO_COMP[Pago complementario (si aplica)]
+  C_PAGO_COMP --> C_FAC[Factura]
+  C_FAC --> C_CONC[Conciliacion tripartita]
+  C_CONC --> C_CIERRE[Cierre de la OC]
+```
