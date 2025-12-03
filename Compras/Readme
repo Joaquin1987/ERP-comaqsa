@@ -1,11 +1,11 @@
-# 🧾 COMAQSA – Módulo de Compras (ERP)  
+# COMAQSA – Módulo de Compras (ERP)  
 Asistente Oficial del Flujo de Compras
 
 Este repositorio documenta el funcionamiento, reglas operativas y lógica técnica del **Módulo de Compras del ERP COMAQSA**, basado íntegramente en el documento oficial **Proceso de Compras COMAQSA (GPT)**.
 
 ---
 
-## 🔍 Objetivo del Sistema
+## Objetivo del Sistema
 Garantizar que todas las compras —normales o críticas, de contado o crédito— sigan un flujo uniforme, controlado y auditable, terminando siempre en una **Conciliación Tripartita**:
 
 1. **OC vs Recepción**  
@@ -16,7 +16,7 @@ Garantizar que todas las compras —normales o críticas, de contado o crédito�
 
 ---
 
-## 📌 Ciclo Base del Proceso de Compras
+## Ciclo Base del Proceso de Compras
 
 1. Requisición  
 2. Validación técnica  
@@ -32,7 +32,7 @@ Garantizar que todas las compras —normales o críticas, de contado o crédito�
 
 ---
 
-## 💵 Reglas de Cotizaciones
+## Reglas de Cotizaciones
 
 | Monto | Requisito |
 |------|-----------|
@@ -42,7 +42,7 @@ Garantizar que todas las compras —normales o críticas, de contado o crédito�
 
 ---
 
-## 🔒 Rangos de Autorización
+## Rangos de Autorización
 
 | Monto | Autoriza |
 |-------|----------|
@@ -52,7 +52,7 @@ Garantizar que todas las compras —normales o críticas, de contado o crédito�
 
 ---
 
-## 📦 Tipos de Recepción
+## Tipos de Recepción
 
 ### **Recepción Preliminar**
 - Sin precio final  
@@ -97,36 +97,38 @@ Garantizar que todas las compras —normales o críticas, de contado o crédito�
 11. Cierre  
 
 ### **3️⃣ Crítico + Crédito**
-1. Requisición crítica  
-2. OC preliminar  
-3. Entrega sin pago  
-4. Recepción preliminar  
-5. Precio final  
-6. Autorización retroactiva  
-7. Convertir a OC normal  
-8. Factura  
-9. Programar pago  
-10. Conciliación  
-11. Cierre  
+1. Requisición 
+2. Validación técnica (crítica)  
+3. OC preliminar  
+4. Entrega sin pago  
+5. Recepción preliminar  
+6. Precio final  
+7. Autorización retroactiva  
+8. Convertir a OC normal  
+9. Factura  
+10. Programar pago  
+11. Conciliación  
+12. Cierre  
 
 ### **4️⃣ Crítico + Contado**
-1. Requisición crítica  
-2. OC preliminar  
-3. Proveedor exige anticipo o pago  
-4. Pago anticipado o total  
-5. Entrega / servicio  
-6. Recepción preliminar o formal  
-7. Precio final  
-8. Autorización retroactiva  
-9. Convertir a OC normal  
-10. Pago complementario (si aplica)  
-11. Factura  
-12. Conciliación  
-13. Cierre  
+1. Requisición 
+2. Validación técnica (crítica)   
+3. OC preliminar  
+4. Proveedor exige anticipo o pago  
+5. Pago anticipado o total  
+6. Entrega / servicio  
+7. Recepción preliminar o formal  
+8. Precio final  
+9. Autorización retroactiva  
+10. Convertir a OC normal  
+11. Pago complementario (si aplica)  
+12. Factura  
+13. Conciliación  
+14. Cierre  
 
 ---
 
-## 🧠 Lógica del Sistema (para desarrolladores)
+## Lógica del Sistema (para desarrolladores)
 
 ### **Estados que debe manejar una OC**
 - Pendiente  
@@ -152,7 +154,7 @@ Garantizar que todas las compras —normales o críticas, de contado o crédito�
 
 ---
 
-## 🧭 Regla Maestra de Cierre
+## Regla Maestra de Cierre
 
 Una Orden de Compra **solo puede cerrarse** si existe conciliación completa entre:
 
@@ -161,31 +163,29 @@ Una Orden de Compra **solo puede cerrarse** si existe conciliación completa ent
 3. Factura vs Pago (contado)  
 4. Factura vs CxP (crédito)
 
-> No existe el concepto **“cierre al pagar”**.
-
 ---
 
-## 🤖 Sobre este Asistente (GPT)
+## Sobre este Asistente (GPT)
 
 Este repositorio incluye al **Asistente ERP COMAQSA Compras**, un modelo diseñado para:
 
 - Explicar el proceso  
 - Validar flujos operativos  
 - Ayudar en la implementación del ERP  
-- Guiar al desarrollador (especialmente Brandon)  
+- Guiar al desarrollador
 - Corregir flujos incorrectos  
 - Proveer lógica, pseudocódigo, validaciones y estados  
 
 ---
 
-## 📂 Archivo Fuente Principal
+## Archivo Fuente Principal
 
 Todo el contenido está basado en el documento interno:  
 **Proceso de Compras COMAQSA (GPT)**
 
 ---
 
-## 📞 Contacto  
+## Contacto  
 **Equipo de Desarrollo ERP COMAQSA**
 
 ---
