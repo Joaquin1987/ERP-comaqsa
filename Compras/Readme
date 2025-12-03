@@ -97,7 +97,7 @@ Garantizar que todas las compras —normales o críticas, de contado o crédito�
 11. Cierre  
 
 ### **3️⃣ Crítico + Crédito**
-1. Requisición 
+1. Requisición  
 2. Validación técnica (crítica)  
 3. OC preliminar  
 4. Entrega sin pago  
@@ -111,8 +111,8 @@ Garantizar que todas las compras —normales o críticas, de contado o crédito�
 12. Cierre  
 
 ### **4️⃣ Crítico + Contado**
-1. Requisición 
-2. Validación técnica (crítica)   
+1. Requisición  
+2. Validación técnica (crítica)  
 3. OC preliminar  
 4. Proveedor exige anticipo o pago  
 5. Pago anticipado o total  
@@ -172,14 +172,13 @@ Este repositorio incluye al **Asistente ERP COMAQSA Compras**, un modelo diseña
 - Explicar el proceso  
 - Validar flujos operativos  
 - Ayudar en la implementación del ERP  
-- Guiar al desarrollador
+- Guiar al desarrollador  
 - Corregir flujos incorrectos  
 - Proveer lógica, pseudocódigo, validaciones y estados  
 
 ---
 
 ## Archivo Fuente Principal
-
 Todo el contenido está basado en el documento interno:  
 **Proceso de Compras COMAQSA (GPT)**
 
@@ -188,4 +187,3 @@ Todo el contenido está basado en el documento interno:
 ## Contacto  
 **Equipo de Desarrollo ERP COMAQSA**
 
----
