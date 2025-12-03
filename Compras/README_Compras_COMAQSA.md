@@ -71,60 +71,146 @@ Garantizar que todas las compras —normales o críticas, de contado o crédito�
 ## 🔄 Los 4 Flujos Maestros
 
 ### **1️⃣ Normal + Crédito**
-1. Requisición  
-2. Validación técnica  
-3. Cotizaciones  
-4. Autorización por montos  
-5. OC normal  
-6. Entrega  
-7. Recepción formal  
-7. Factura  
-9. Programar pago (CxP)  
-10. Conciliación  
-11. Cierre  
+1. Requisición
+   * Solicitud formal de bienes o servicios.
+   * Incluye cantidades, especificaciones y motivo de compra.
+2. Validación técnica
+   * Jefe de área confirma que lo solicitado es correcto.
+   * Puede ajustar especificaciones antes de cotizar.
+3. Cotizaciones (según monto)
+   * Hasta $5,000 → 1 cotización
+   * $5,001 a $15,000 → 2 cotizaciones
+   * Más de $15,000 → 3 cotizaciones + comparativo
+   * Se selecciona proveedor con mejor costo/beneficio.
+4. Autorización por montos
+   * La OC no puede generarse sin esta aprobación.
+5. OC normal
+   * Documento formal con precio final y condiciones pactadas.
+   * Bloquea cambios de precio sin volver a autorizar.
+6. Entrega
+   * El proveedor entrega materiales o ejecuta el servicio.
+   * Únicamente puede ocurrir después de la OC normal.
+7. Recepción formal
+   * Confirmación de cantidades, calidad y cumplimiento.
+   * Debe coincidir exactamente con la OC.
+8. Factura
+   * Debe coincidir con la OC y con la recepción formal.
+   * Cualquier diferencia obliga a corrección antes de avanzar.
+9. Programar pago (CxP)
+   * Se genera el documento por pagar.
+   * Se integra al calendario de pagos según créditos pactados.
+10. Conciliación
+* Solo cuando los tres coinciden se puede cerrar.
+11. Cierre
+* La OC queda completamente conciliada y sin pendientes.
+
 
 ### **2️⃣ Normal + Contado**
-1. Requisición  
-2. Validación técnica  
-3. Cotizaciones  
-4. Autorización  
-5. OC normal  
-6. Pago  
-7. Entrega  
-8. Recepción formal  
-9. Factura  
-10. Conciliación  
-11. Cierre  
+1. Requisición
+   * Solicitud formal del usuario interno.
+   * Debe incluir toda la información para cotizar correctamente.
+2. Validación técnica
+   * Confirmación de necesidad, modelo correcto, medida, etc.
+   * Por jefe de área.
+3. Cotizaciones (según monto)
+   * Mismos rangos obligatorios que en crédito.
+   * Se arma comparativo si excede $15,000.
+4. Autorización por montos
+   * Requiere aprobación antes de emitir la OC.
+   * Evita compras no autorizadas o fuera del presupuesto.
+5. OC normal
+   * Documento formal con precio final y condiciones pactadas.
+   * Se autoriza antes de pagar.
+6. Pago (contado)
+   * Ocurre ANTES de la entrega.
+   * Puede ser total o parcial según lo pactado.
+   * Este pago no cierra la OC.
+7. Entrega
+   * El proveedor entrega bienes/servicios tras confirmar el pago.
+8. Recepción formal
+   * Validación física y documental de lo recibido.
+   * Debe coincidir con lo pactado en la OC.
+9. Factura
+   * Coincide con OC y recepción.
+   * Si hay diferencias, se detiene el flujo hasta corregir.
+10. Conciliación
+   * Se valida que lo pagado coincide exactamente con lo facturado.
+11. Cierre
+
 
 ### **3️⃣ Crítico + Crédito**
-1. Requisición  
-2. Validación técnica (crítica)  
-3. OC preliminar  
-4. Entrega sin pago  
-5. Recepción preliminar  
-6. Precio final  
-7. Autorización retroactiva  
-8. Convertir a OC normal  
-9. Factura  
-10. Programar pago  
-11. Conciliación  
-12. Cierre  
+1. Requisición
+   * Emisor solicita el bien/servicio.
+   * No requiere aún precio final.
+2. Validación técnica
+   * Se revisa la necesidad real.
+   * Aquí se determina que es CRÍTICA.
+   * El sistema registra:
+     • responsable que marcó “crítico”,
+     • motivo,
+     • riesgo operativo,
+     • justificación de urgencia.
+3. (Cotizaciones — opcional por urgencia)
+   * En compra crítica, NO se exige completar cotizaciones al inicio.
+   * El sistema permite continuar con 1 cotización o incluso 0 si el tiempo es determinante.
+4. OC preliminar
+   * Obligatoria en compra crítica.
+   * Puede no tener precio final.
+   * Permite separar mercancía o pedir atención inmediata.
+   * No se puede facturar aún.
+5. Entrega sin pago
+   * El proveedor entrega antes de autorización de montos.
+6. Recepción preliminar
+   * Porque no hay precio final o la entrega ocurrió sin autorización.
+   * Debe validarse < 72 horas.
+7. Precio final
+   * El proveedor confirma el monto real.
+   * Se actualiza la OC preliminar.
+8. Completar cotizaciones o justificar por qué NO se completan
+   * Ruta 1: completar cotizaciones después.
+   * Ruta 2: justificar excepción (urgencia, OEM, único con inventario).
+   * Ruta 3: combinación.
+   * Registro obligatorio de proveedor elegido, motivo y aprobador.
+9. Autorización retroactiva por montos
+   * Aplican rangos normales.
+10. Convertir a OC normal
+11. Factura
+12. Programar pago (CxP)
+13. Conciliación
+14. Cierre
+ 
 
 ### **4️⃣ Crítico + Contado**
-1. Requisición  
-2. Validación técnica (crítica)  
-3. OC preliminar  
-4. Proveedor exige anticipo o pago  
-5. Pago anticipado o total  
-6. Entrega / servicio  
-7. Recepción preliminar o formal  
-8. Precio final  
-9. Autorización retroactiva  
-10. Convertir a OC normal  
-11. Pago complementario (si aplica)  
-12. Factura  
-13. Conciliación  
-14. Cierre  
+1. Requisición
+   * Solicitud formal del bien/servicio.
+2. Validación técnica
+   * Se confirma la necesidad técnica.
+   * Aquí se determina que es CRÍTICA.
+   * Registro de motivo, responsable y urgencia operativa.
+3. (Cotizaciones — opcional por urgencia)
+   * Pueden faltar al inicio.
+   * Se completan después o se justifican.
+4. OC preliminar
+   * Sin precio final o con precio estimado.
+5. Proveedor exige anticipo o pago
+6. Pago anticipado o total
+   * Puede ocurrir sin conocer el precio final.
+   * Este pago NO cierra la OC.
+7. Entrega / servicio
+8. Recepción preliminar o formal
+   * Preliminar: si no hay precio final ni OC normal.
+   * Formal: si ya existe precio final y OC normal.
+9. Precio final
+   * Ajustes, diferencias, servicios extra o adicionales.
+   * Se actualiza la OC preliminar.
+10. Completar cotizaciones o justificar por qué NO se completan
+11. Autorización retroactiva por montos
+12. Convertir a OC normal
+13. Pago complementario (si aplica)
+* Si el precio final supera el anticipo.
+14. Factura
+15. Conciliación
+16. Cierre
 
 ---
 
