@@ -1,3 +1,4 @@
+```mermaid
 flowchart TD
 
     A[REQ_NC<br>Requisición] --> B[VT_NC<br>Validación técnica]
@@ -10,3 +11,4 @@ flowchart TD
     H --> I[PROG_NC<br>Programar pago (CxP)]
     I --> J[CONC_NC<br>Conciliación tripartita]
     J --> K[CIERRE_NC<br>Cierre de compra]
+```
