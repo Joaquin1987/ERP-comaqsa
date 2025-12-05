@@ -1,219 +1,361 @@
-# COMAQSA – Módulo de Compras (ERP)  
-Asistente Oficial del Flujo de Compras
+# COMAQSA – Módulo de Compras (ERP)
+**Documento Oficial del Flujo de Compras — Integrado para Taller y Obra**
 
-Este repositorio documenta el funcionamiento, reglas operativas y lógica técnica del **Módulo de Compras del ERP COMAQSA**, basado íntegramente en el documento oficial **Proceso de Compras COMAQSA (GPT)**.
+Este documento define **toda la lógica operativa y técnica** del Módulo de Compras del ERP COMAQSA, incluyendo:
+
+- Verdades absolutas del sistema  
+- Tipos de OC y recepciones  
+- Cotizaciones y autorizaciones  
+- Flujos normales y críticos  
+- Variantes por Taller y Obra  
+- Regla de cierre por conciliación tripartita  
+- Los **8 flujos maestros completos**, con todas sus ramificaciones  
 
 ---
 
-## Objetivo del Sistema
-Garantizar que todas las compras —normales o críticas, de contado o crédito— sigan un flujo uniforme, controlado y auditable, terminando siempre en una **Conciliación Tripartita**:
+# 1. Principio Rector del Sistema
+
+## 🚦 Conciliación Tripartita (único mecanismo de cierre)
+
+Toda compra solo puede cerrarse cuando coinciden:
 
 1. **OC vs Recepción**  
 2. **OC vs Factura**  
-3. **Factura vs Pago / CxP**
+3. **Factura vs Pago (contado) o CxP (crédito)**  
 
-> Ninguna Orden de Compra puede cerrarse sin esta conciliación completa.
+➡️ El pago NO cierra.  
+➡️ La conciliación completa SÍ cierra.
 
 ---
 
-## Ciclo Base del Proceso de Compras
+# 2. Ciclo Base del Proceso
+
+1. Requisición  
+2. Validación técnica  
+3. Cotizaciones  
+4. Autorización económica  
+5. OC (normal o preliminar)  
+6. Entrega o servicio  
+7. Recepción (preliminar o formal)  
+8. Factura  
+9. Pago / CxP  
+10. Conciliación  
+11. Cierre  
+
+---
+
+# 3. Tipos de OC
+
+| Tipo | Uso |
+|------|-----|
+| **OC Normal** | Uso estándar con precio final definido. |
+| **OC Preliminar** | Obligatoria en compras críticas, sin precio final. |
+
+---
+
+# 4. Tipos de Recepción
+
+| Tipo | Uso |
+|------|-----|
+| **Recepción Preliminar** | Sin precio final, entrega sin autorización, compra crítica, anticipo. |
+| **Recepción Formal** | Con OC normal, precio final, factura consistente. |
+
+---
+
+# 5. Reglas de Cotización
+
+| Monto | Requisito |
+|-------|-----------|
+| Hasta $5,000 | 1 cotización |
+| $5,001–$15,000 | 2 cotizaciones |
+| > $15,000 | 3 cotizaciones + comparativo |
+
+👉 En compras críticas pueden omitirse al inicio, pero deben completarse o justificarse **antes de convertir a OC normal**.
+
+---
+
+# 6. Autorizaciones Económicas
+
+## 6.1 Taller (y Obra no presupuestada)
+| Monto | Autorización |
+|-------|--------------|
+| Hasta $20,000 | Jefe de Área |
+| $20,001–$50,000 | Director de Área |
+| > $50,000 | Director General |
+
+## 6.2 Obra — Concepto Presupuestado
+
+Obra **no usa montos**, sino:
+
+- Validación de **PU real ≤ PU presupuestado**  
+- Validación de **saldo suficiente del concepto**  
+
+Si NO cumple:
+
+- PU > PU presupuestado → autoriza Área de Obra  
+- Saldo insuficiente → aplica sobreejercicio (20k / 50k / DG)
+
+---
+
+# 7. LOS 8 FLUJOS MAESTROS COMPLETOS  
+*(contenidos exactamente como los solicitaste)*
+
+---
+
+# 1️⃣ TALLER — Normal + Crédito
+
+### **Requisición**
+- Solicitud formal de bienes o servicios.  
+- Incluye cantidades, especificaciones y motivo.  
+- Estado: *Pendiente → Requisición validada.*
+
+### **Validación técnica**
+- El jefe de área verifica que la necesidad es correcta.  
+- Puede ajustar modelo, medida o cantidad.  
+- Aquí **NO** se marca crítica (si lo fuera, se desvía al flujo crítico).
+
+### **Cotizaciones según monto**
+- Hasta $5,000 → 1 cotización.  
+- $5,001–$15,000 → 2 cotizaciones.  
+- >$15,000 → 3 cotizaciones + comparativo.  
+- Obligatorio en Taller.  
+- No se puede avanzar sin completar.
+
+### **Autorización por montos**
+- Hasta $20,000 → Jefe de Área.  
+- $20,001–$50,000 → Director de Área.  
+- >$50,000 → Director General.  
+- Se valida el **monto total** de la OC.
+
+### **OC normal**
+- Precio final definido y bloqueado.  
+- Cualquier cambio requiere reautorizar.
+
+### **Entrega**
+- Solo puede ocurrir después de generar una OC normal.
+
+### **Recepción formal**
+- Cantidades y artículos deben coincidir con la OC.  
+- Se valida calidad y cumplimiento.
+
+### **Factura**
+- Debe coincidir con recepción y OC en precio, cantidad e impuestos.
+
+### **Programar pago (CxP)**
+- Se genera documento por pagar.  
+- Entra en calendario de pagos.
+
+### **Conciliación**
+- OC vs Recepción  
+- OC vs Factura  
+- Factura vs CxP
+
+### **Cierre**
+- Solo tras conciliación completa.
+
+---
+
+# 2️⃣ TALLER — Normal + Contado
+
+1. Requisición  
+2. Validación técnica  
+3. Cotizaciones según monto (obligatorias)  
+4. Autorización por montos  
+5. OC normal  
+6. **Pago de contado**
+   - Total o parcial.  
+   - Ocurre ANTES de la entrega.  
+   - El pago **NO** cierra la OC.
+7. Entrega  
+8. Recepción formal  
+9. Factura  
+10. Conciliación  
+11. Cierre  
+
+*Es igual al Normal + Crédito, excepto por el pago anticipado.*
+
+---
+
+# 3️⃣ TALLER — Crítico + Crédito
+
+### **Requisición**
+
+### **Validación técnica**
+Aquí el jefe de área marca **CRÍTICA**.  
+El sistema registra:
+- responsable,  
+- motivo,  
+- urgencia operativa,  
+- riesgo operativo.
+
+### **Cotizaciones iniciales (opcionales)**
+- El flujo puede avanzar con 1 cotización o incluso 0 si el tiempo lo exige.
+
+### **OC preliminar**
+- Obligatoria en compra crítica.  
+- Puede no tener precio final.  
+- Permite separar mercancía o solicitar servicio inmediato.
+
+### **Entrega sin pago**
+
+### **Recepción preliminar**
+- Debe validarse en <72 horas.
+
+### **Precio final**
+
+### **Completar / justificar cotizaciones**
+
+### **Autorización retroactiva por montos**
+- Con rangos del Taller.
+
+### **Convertir a OC normal**
+
+### **Factura**
+
+### **Programar pago (CxP)**
+
+### **Conciliación**
+
+### **Cierre**
+
+---
+
+# 4️⃣ TALLER — Crítico + Contado
+
+1. Requisición  
+2. Validación técnica → se marca CRÍTICA  
+3. Cotizaciones opcionales  
+4. OC preliminar  
+5. Proveedor exige anticipo o pago  
+6. **Pago anticipado o total**  
+   - No cierra la OC  
+7. Entrega  
+8. Recepción preliminar o formal  
+9. Precio final  
+10. Completar / justificar cotizaciones  
+11. Autorización retroactiva por montos  
+12. Convertir a OC normal  
+13. Pago complementario (si aplica)  
+14. Factura  
+15. Conciliación  
+16. Cierre  
+
+---
+
+# 5️⃣ OBRA — Normal + Crédito
+
+La bifurcación de obra es CLAVE: primero se determina si hay **concepto presupuestado**.
+
+---
+
+## 🔵 **Si ES concepto presupuestado**
+
+1. Requisición  
+2. Validación técnica  
+3. Cotizaciones obligatorias  
+4. Validación económica del concepto  
+   - Validar PU real ≤ PU presupuestado  
+   - Validar saldo del concepto ≥ monto requerido  
+   - Si ambos se cumplen → autorización automática del ERP  
+   - PU > PU presupuestado → autoriza área de obra  
+   - Saldo insuficiente → sobreejercicio (20k / 50k / DG)
+5. OC normal  
+6. Entrega  
+7. Recepción formal  
+8. Factura  
+9. Programar pago (CxP)  
+10. Conciliación  
+11. Cierre  
+
+---
+
+## 🔴 **Si NO es concepto presupuestado (opera como Taller)**
 
 1. Requisición  
 2. Validación técnica  
 3. Cotizaciones según monto  
 4. Autorización por montos  
-5. OC (normal o preliminar)  
-6. Entrega o servicio  
-7. Recepción (preliminar o formal)  
+5. OC normal  
+6. Entrega  
+7. Recepción formal  
 8. Factura  
-9. Pagos o Programación de pago  
+9. CxP  
 10. Conciliación  
-11. Cierre de OC
+11. Cierre  
 
 ---
 
-## Reglas de Cotizaciones
+# 6️⃣ OBRA — Normal + Contado
 
-| Monto | Requisito |
-|------|-----------|
-| Hasta $5,000 | 1 cotización |
-| $5,001 – $15,000 | 2 cotizaciones |
-| Más de $15,000 | 3 cotizaciones + comparativo |
+Flujo igual al Normal + Crédito, excepto:
 
----
+- **Pago anticipado antes de entrega (no cierra la OC)**
 
-## Rangos de Autorización
+### Bifurcación:
 
-| Monto | Autoriza |
-|-------|----------|
-| Hasta $20,000 | Jefe de Área |
-| $20,001 – $50,000 | Director de Área |
-| Más de $50,000 | Director General |
+#### Si ES concepto presupuestado:
+- Validación PU + saldo  
+- Autorización automática o por área de obra  
+- Resto del flujo igual a normal + crédito  
+
+#### Si NO es concepto:
+- Opera como Taller  
 
 ---
 
-## Tipos de Recepción
+# 7️⃣ OBRA — Crítico + Crédito
 
-### **Recepción Preliminar**
-- Sin precio final  
-- Compras críticas  
-- Entregas sin autorización previa  
-- Pagos anticipados sin monto definitivo  
-- Debe validarse en máximo **72 horas**
+Al marcar CRÍTICA, obra obtiene los permisos de urgencia pero **mantiene control económico por PU + saldo**.
 
-### **Recepción Formal**
-- OC normal autorizada  
-- Precio final conocido  
-- Factura coincide con lo recibido  
+### Paso a paso:
+
+1. Requisición  
+2. Validación técnica (marca crítica — registra responsable, motivo, urgencia)  
+3. ¿Concepto presupuestado?
+   - Si es → validar PU estimado + saldo  
+   - Si no es → aplicar montos como Taller  
+4. Cotizaciones opcionales  
+5. OC preliminar  
+6. Entrega sin pago  
+7. Recepción preliminar  
+8. Precio final  
+9. Validación económica final  
+   - Si es concepto → PU final + saldo  
+   - Si no es → rangos del Taller  
+10. Completar o justificar cotizaciones  
+11. Autorización retroactiva  
+12. Convertir a OC normal  
+13. Factura  
+14. CxP  
+15. Conciliación  
+16. Cierre  
 
 ---
 
-## 🔄 Los 4 Flujos Maestros
+# 8️⃣ OBRA — Crítico + Contado
 
-### **1️⃣ Normal + Crédito**
-1. Requisición
-   * Solicitud formal de bienes o servicios.
-   * Incluye cantidades, especificaciones y motivo de compra.
-2. Validación técnica
-   * Jefe de área confirma que lo solicitado es correcto.
-   * Puede ajustar especificaciones antes de cotizar.
-3. Cotizaciones (según monto)
-   * Hasta $5,000 → 1 cotización
-   * $5,001 a $15,000 → 2 cotizaciones
-   * Más de $15,000 → 3 cotizaciones + comparativo
-   * Se selecciona proveedor con mejor costo/beneficio.
-4. Autorización por montos
-   * La OC no puede generarse sin esta aprobación.
-5. OC normal
-   * Documento formal con precio final y condiciones pactadas.
-   * Bloquea cambios de precio sin volver a autorizar.
-6. Entrega
-   * El proveedor entrega materiales o ejecuta el servicio.
-   * Únicamente puede ocurrir después de la OC normal.
-7. Recepción formal
-   * Confirmación de cantidades, calidad y cumplimiento.
-   * Debe coincidir exactamente con la OC.
-8. Factura
-   * Debe coincidir con la OC y con la recepción formal.
-   * Cualquier diferencia obliga a corrección antes de avanzar.
-9. Programar pago (CxP)
-   * Se genera el documento por pagar.
-   * Se integra al calendario de pagos según créditos pactados.
-10. Conciliación
-* Solo cuando los tres coinciden se puede cerrar.
-11. Cierre
-* La OC queda completamente conciliada y sin pendientes.
+1. Requisición  
+2. Validación técnica (marca crítica)  
+3. Validación económica inicial (concepto o no concepto)  
+4. Cotizaciones opcionales  
+5. OC preliminar  
+6. Pago anticipado  
+7. Entrega  
+8. Recepción preliminar o formal  
+9. Precio final  
+10. Validación económica final  
+11. Completar / justificar cotizaciones  
+12. Autorización retroactiva  
+13. OC normal  
+14. Pago complementario  
+15. Factura  
+16. Conciliación  
+17. Cierre  
 
-
-### **2️⃣ Normal + Contado**
-1. Requisición
-   * Solicitud formal del usuario interno.
-   * Debe incluir toda la información para cotizar correctamente.
-2. Validación técnica
-   * Confirmación de necesidad, modelo correcto, medida, etc.
-   * Por jefe de área.
-3. Cotizaciones (según monto)
-   * Mismos rangos obligatorios que en crédito.
-   * Se arma comparativo si excede $15,000.
-4. Autorización por montos
-   * Requiere aprobación antes de emitir la OC.
-   * Evita compras no autorizadas o fuera del presupuesto.
-5. OC normal
-   * Documento formal con precio final y condiciones pactadas.
-   * Se autoriza antes de pagar.
-6. Pago (contado)
-   * Ocurre ANTES de la entrega.
-   * Puede ser total o parcial según lo pactado.
-   * Este pago no cierra la OC.
-7. Entrega
-   * El proveedor entrega bienes/servicios tras confirmar el pago.
-8. Recepción formal
-   * Validación física y documental de lo recibido.
-   * Debe coincidir con lo pactado en la OC.
-9. Factura
-   * Coincide con OC y recepción.
-   * Si hay diferencias, se detiene el flujo hasta corregir.
-10. Conciliación
-   * Se valida que lo pagado coincide exactamente con lo facturado.
-11. Cierre
-
-
-### **3️⃣ Crítico + Crédito**
-1. Requisición
-   * Emisor solicita el bien/servicio.
-   * No requiere aún precio final.
-2. Validación técnica
-   * Se revisa la necesidad real.
-   * Aquí se determina que es CRÍTICA.
-   * El sistema registra:
-     • responsable que marcó “crítico”,
-     • motivo,
-     • riesgo operativo,
-     • justificación de urgencia.
-3. (Cotizaciones — opcional por urgencia)
-   * En compra crítica, NO se exige completar cotizaciones al inicio.
-   * El sistema permite continuar con 1 cotización o incluso 0 si el tiempo es determinante.
-4. OC preliminar
-   * Obligatoria en compra crítica.
-   * Puede no tener precio final.
-   * Permite separar mercancía o pedir atención inmediata.
-   * No se puede facturar aún.
-5. Entrega sin pago
-   * El proveedor entrega antes de autorización de montos.
-6. Recepción preliminar
-   * Porque no hay precio final o la entrega ocurrió sin autorización.
-   * Debe validarse < 72 horas.
-7. Precio final
-   * El proveedor confirma el monto real.
-   * Se actualiza la OC preliminar.
-8. Completar cotizaciones o justificar por qué NO se completan
-   * Ruta 1: completar cotizaciones después.
-   * Ruta 2: justificar excepción (urgencia, OEM, único con inventario).
-   * Ruta 3: combinación.
-   * Registro obligatorio de proveedor elegido, motivo y aprobador.
-9. Autorización retroactiva por montos
-   * Aplican rangos normales.
-10. Convertir a OC normal
-11. Factura
-12. Programar pago (CxP)
-13. Conciliación
-14. Cierre
- 
-### **4️⃣ Crítico + Contado**
-1. Requisición
-   * Solicitud formal del bien/servicio.
-2. Validación técnica
-   * Se confirma la necesidad técnica.
-   * Aquí se determina que es CRÍTICA.
-   * Registro de motivo, responsable y urgencia operativa.
-3. (Cotizaciones — opcional por urgencia)
-   * Pueden faltar al inicio.
-   * Se completan después o se justifican.
-4. OC preliminar
-   * Sin precio final o con precio estimado.
-5. Proveedor exige anticipo o pago
-6. Pago anticipado o total
-   * Puede ocurrir sin conocer el precio final.
-   * Este pago NO cierra la OC.
-7. Entrega / servicio
-8. Recepción preliminar o formal
-   * Preliminar: si no hay precio final ni OC normal.
-   * Formal: si ya existe precio final y OC normal.
-9. Precio final
-   * Ajustes, diferencias, servicios extra o adicionales.
-   * Se actualiza la OC preliminar.
-10. Completar cotizaciones o justificar por qué NO se completan
-11. Autorización retroactiva por montos
-12. Convertir a OC normal
-13. Pago complementario (si aplica)
-* Si el precio final supera el anticipo.
-14. Factura
-15. Conciliación
-16. Cierre
 ---
-## Lógica del Sistema (para desarrolladores)
 
-### **Estados que debe manejar una OC**
+# 8. Estados del Sistema
+
 - Pendiente  
 - Requisición validada  
 - En cotización  
@@ -225,47 +367,30 @@ Garantizar que todas las compras —normales o críticas, de contado o crédito�
 - En conciliación  
 - Cerrada  
 
-### **El sistema debe permitir**
+---
+
+# 9. Reglas del Motor del ERP
+
+El ERP debe permitir:
+
 - OC preliminar sin precio  
+- Recepción preliminar sin OC normal  
 - Autorización retroactiva  
-- Cambios de monto antes de autorizar  
+- Anticipos + pagos complementarios  
 - Varias recepciones  
 - Varias facturas  
-- Pagos anticipados + pagos complementarios  
 - Servicios y refacciones mezclados  
-- Recepción preliminar sin OC normal  
+- Cualquier cambio de precio en OC normal → requiere reautorizar  
+- Conversión obligatoria de OC preliminar → OC normal  
 
 ---
 
-## Regla Maestra de Cierre
+# 10. Documento Fuente
 
-Una Orden de Compra **solo puede cerrarse** si existe conciliación completa entre:
-
-1. OC vs Recepción  
-2. OC vs Factura  
-3. Factura vs Pago (contado)  
-4. Factura vs CxP (crédito)
+- Proceso de Compras COMAQSA (GPT)  
+- Particularidades de Compra Crítica  
+- Diagramas maestros de Taller, Obra y flujos Normal/Crítico  
 
 ---
 
-## Sobre este Asistente (GPT)
-
-Este repositorio incluye al **Asistente ERP COMAQSA Compras**, un modelo diseñado para:
-
-- Explicar el proceso  
-- Validar flujos operativos  
-- Ayudar en la implementación del ERP  
-- Guiar al desarrollador  
-- Corregir flujos incorrectos  
-- Proveer lógica, pseudocódigo, validaciones y estados  
-
----
-
-## Archivo Fuente Principal
-Todo el contenido está basado en el documento interno:  
-**Proceso de Compras COMAQSA (GPT)**
-
----
-
-## Contacto  
-**Equipo de Desarrollo ERP COMAQSA**
+# Equipo de Desarrollo ERP – COMAQSA
