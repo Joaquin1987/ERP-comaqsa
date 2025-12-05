@@ -16,14 +16,14 @@ flowchart TD
     COT --> TIPO
 
     ECON_CP["Validación económica (concepto presupuestado)<br/><br/>
-    - Validar precio unitario vs PU presupuestado<br/>
-    - Validar saldo del concepto<br/>
-    - Si PU real ≤ PU presupuestado y saldo suficiente → Autorización automática<br/>
-    - Si PU real > PU presupuestado → Autorización del área de obra<br/>
-    - Si saldo insuficiente → Autorización por sobreejercicio<br/>(usando rangos 20k / 50k / DG)"]
+    - Validar PU real vs PU presupuestado<br/>
+    - Validar saldo del concepto<br/><br/>
+    Si PU real ≤ PU presupuestado y saldo suficiente → autoriza sistema<br/>
+    Si PU real > PU presupuestado → autoriza área de obra<br/>
+    Si saldo insuficiente → sobreejercicio (rangos 20k / 50k / DG)"]
 
-    ECON_NOCP["Validación económica (obra SIN concepto)<br/><br/>
-    - Sigue reglas de Taller<br/>
+    ECON_NOCP["Validación económica (sin concepto)<br/><br/>
+    Sigue reglas de Taller:<br/>
     - Autorización por montos<br/>
     Hasta 20,000 → Jefe de área<br/>
     20,001 a 50,000 → Director de área<br/>
@@ -32,8 +32,7 @@ flowchart TD
     TIPO -->|"Sí, es concepto"| ECON_CP
     TIPO -->|"No, no es concepto"| ECON_NOCP
 
-    %% A PARTIR DE AQUÍ, AMBAS RUTAS SIGUEN LOS 4 FLUJOS MAESTROS
-
+    %% DESPUÉS DE LA VALIDACIÓN ECONÓMICA → ¿COMPRA CRÍTICA?
     CRIT{"¿Compra crítica?"}
     ECON_CP --> CRIT
     ECON_NOCP --> CRIT
@@ -44,13 +43,13 @@ flowchart TD
     CRIT -->|"No"| NORM
     CRIT -->|"Sí"| COMP_CRIT
 
-    %% NOTA: QUÉ IMPLICA MARCAR COMO CRÍTICA (OBRA)
+    %% NOTA: QUÉ IMPLICA MARCAR COMO CRÍTICA EN OBRA
     NOTA_CRIT["Al marcar una compra como CRÍTICA el sistema permite:<br/>
     - Generar OC preliminar<br/>
     - Recibir con recepción preliminar<br/>
     - Entregar o pagar antes de autorización completa<br/>
     - Hacer autorización por montos de forma retroactiva<br/>
-    (manteniendo validaciones de PU y presupuesto en obra)"] -.-> COMP_CRIT
+    (manteniendo validación de PU y presupuesto de obra)"] -.-> COMP_CRIT
 
     %% =====================================
     %% RAMA NORMAL (OBRA)
@@ -117,7 +116,7 @@ flowchart TD
     CT_EXIGE --> CT_PAGO_ANT --> CT_ENT --> CT_REC --> CT_PREC --> CT_AUT --> CT_OCN --> CT_PAGO_COMP --> CT_FAC
 
     %% =====================================
-    %% CONCILIACIÓN Y CIERRE (COMÚN A TODO)
+    %% CONCILIACIÓN Y CIERRE (COMÚN)
     %% =====================================
 
     CONC["Conciliación tripartita<br/>OC vs Recepción vs Factura vs Pago/CxP"]
@@ -129,3 +128,4 @@ flowchart TD
     CT_FAC --> CONC
 
     CONC --> CIERRE
+```
