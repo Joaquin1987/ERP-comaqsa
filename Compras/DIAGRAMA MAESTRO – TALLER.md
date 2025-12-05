@@ -8,10 +8,7 @@ flowchart TD
     R["Requisición"]
     VT["Validación técnica"]
     COT["Cotizaciones<br/>según monto"]
-    AUT["Autorización por montos<br/><br/>
-    Hasta 20,000 → Jefe de área<br/>
-    20,001 a 50,000 → Director de área<br/>
-    Más de 50,000 → Director general"]
+    AUT["Autorización por montos"]
 
     T --> R --> VT --> COT --> AUT
 
@@ -19,44 +16,66 @@ flowchart TD
     CRIT{"¿Compra crítica?"}
     AUT --> CRIT
 
-    %% =====================================
-    %% RAMA NORMAL (Taller)
-    %% =====================================
-    OC_N["OC normal"]
+    %% RAMAS DE LA DECISIÓN
+    NORM["Compra NORMAL"]
+    COMP_CRIT["Compra CRÍTICA"]
 
-    CRIT -->|No| OC_N
+    CRIT -->|No| NORM
+    CRIT -->|Sí| COMP_CRIT
+
+    %% REGLA: AUTORIZACIÓN POR MONTOS (TALLER)
+    REGLAS["Autorización por montos (Taller)<br/><br/>
+    Hasta 20,000 → Jefe de área<br/>
+    20,001 a 50,000 → Director de área<br/>
+    &gt; 50,000 → Director general"]
+    VT --> REGLAS
+
+    %% NOTA: QUÉ IMPLICA MARCAR COMO CRÍTICA (PEGADA A COMPRA CRÍTICA)
+    NOTA_CRIT["Al marcar una compra como CRÍTICA el sistema permite:<br/>
+    - Generar OC preliminar<br/>
+    - Recibir con recepción preliminar<br/>
+    - Entregar o pagar antes de autorización completa<br/>
+    - Hacer autorización por montos de forma retroactiva"] -.-> COMP_CRIT
+
+    %% =====================================
+    %% RAMA NORMAL (TALLER)
+    %% =====================================
+
+    OC_N["OC normal"]
+    NORM --> OC_N
 
     P_N{"¿Crédito o contado?"}
     OC_N --> P_N
 
     %% Normal + CRÉDITO
-    N_ENT["Entrega"]
-    N_REC["Recepción formal"]
-    N_FAC["Factura"]
-    N_PROG["Programar pago CxP"]
+    NC_ENT["Entrega"]
+    NC_REC["Recepción formal"]
+    NC_FAC["Factura"]
+    NC_PROG["Programar pago CxP"]
 
-    P_N -->|Crédito| N_ENT
-    N_ENT --> N_REC --> N_FAC --> N_PROG
+    P_N -->|Crédito| NC_ENT
+    NC_ENT --> NC_REC --> NC_FAC --> NC_PROG
 
     %% Normal + CONTADO
-    N_PAGO["Pago de contado<br/>(no cierra la compra)"]
-    N_ENT_C["Entrega"]
-    N_REC_C["Recepción formal"]
-    N_FAC_C["Factura"]
+    NCT_PAGO["Pago de contado<br/>(no cierra la compra)"]
+    NCT_ENT["Entrega"]
+    NCT_REC["Recepción formal"]
+    NCT_FAC["Factura"]
 
-    P_N -->|Contado| N_PAGO
-    N_PAGO --> N_ENT_C --> N_REC_C --> N_FAC_C
+    P_N -->|Contado| NCT_PAGO
+    NCT_PAGO --> NCT_ENT --> NCT_REC --> NCT_FAC
 
     %% =====================================
-    %% RAMA CRÍTICA (Taller)
+    %% RAMA CRÍTICA (TALLER)
     %% =====================================
+
     OC_PRE["OC preliminar<br/>(compra crítica)"]
-    CRIT -->|Sí| OC_PRE
+    COMP_CRIT --> OC_PRE
 
     P_C{"¿Crédito o contado?"}
     OC_PRE --> P_C
 
-    %% ---- Crítico + CRÉDITO ----
+    %% Crítico + CRÉDITO
     CC_ENT["Entrega sin pago"]
     CC_REC["Recepción preliminar"]
     CC_PREC["Definir precio final"]
@@ -68,7 +87,7 @@ flowchart TD
     P_C -->|Crédito| CC_ENT
     CC_ENT --> CC_REC --> CC_PREC --> CC_AUT --> CC_OCN --> CC_FAC --> CC_PROG
 
-    %% ---- Crítico + CONTADO ----
+    %% Crítico + CONTADO
     CT_EXIGE["Proveedor exige<br/>anticipo o pago"]
     CT_PAGO_ANT["Pago anticipado o total<br/>(no cierra la compra)"]
     CT_ENT["Entrega / servicio"]
@@ -85,49 +104,13 @@ flowchart TD
     %% =====================================
     %% CONCILIACIÓN Y CIERRE (COMÚN A TODO)
     %% =====================================
+
     CONC["Conciliación tripartita<br/>OC vs Recepción vs Factura vs Pago/CxP"]
     CIERRE["Cierre de compra"]
 
-    %% Todas las rutas llegan a la misma conciliación
-    N_PROG --> CONC
-    N_FAC_C --> CONC
+    NC_PROG --> CONC
+    NCT_FAC --> CONC
     CC_PROG --> CONC
     CT_FAC --> CONC
 
     CONC --> CIERRE
-
-    %% NOTA: QUÉ IMPLICA MARCAR CRÍTICA
-    NOTA_CRIT["Al marcar una compra como CRÍTICA el sistema permite:<br/>
-    - Generar OC preliminar<br/>
-    - Recibir con recepción preliminar<br/>
-    - Entregar o pagar antes de autorización completa<br/>
-    - Hacer autorización por montos de forma retroactiva"] -.-> OC_PRE
-```
-
-    P_C -->|Crédito| F3
-    P_C -->|Contado| F4
-
-    %% REGLAS DE AUTORIZACIÓN POR MONTOS
-    REGLAS["Autorización por montos (Taller)<br/><br/>
-    Hasta 20,000 → Jefe de área<br/>
-    20,001 a 50,000 → Director de área<br/>
-    Más de 50,000 → Director general"]
-    VT --> REGLAS
-
-    %% NOTA: QUÉ IMPLICA MARCAR COMO CRÍTICA
-    NOTA_CRIT["Al marcar compra CRÍTICA se habilita:<br/>
-    - OC preliminar<br/>
-    - Recepción preliminar<br/>
-    - Operación/pagos de urgencia según flujo<br/>
-    - Autorización retroactiva por montos"] -.-> CRIT_R
-
-    %% CIERRE COMÚN
-    CONC["Conciliación tripartita"]
-    CIERRE["Cierre de compra"]
-
-    F1 --> CONC
-    F2 --> CONC
-    F3 --> CONC
-    F4 --> CONC
-    CONC --> CIERRE
-```
