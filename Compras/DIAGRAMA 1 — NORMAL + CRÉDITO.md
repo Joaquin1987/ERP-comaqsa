@@ -1,8 +1,13 @@
 ```mermaid
 flowchart TD
+    %% =====================================
+    %%              TÍTULO
+    %% =====================================
+    T["<b>FLUJO NORMAL + CRÉDITO</b>"]:::title
 
-    %% ==== NODOS PRINCIPALES CON ÍNDICE ARRIBA Y EN NEGRITAS ====
-
+    %% =====================================
+    %%         NODOS PRINCIPALES
+    %% =====================================
     A["<b>REQ_NC</b><br/>Requisición"]
     B["<b>VT_NC</b><br/>Validación técnica"]
     C["<b>COT_NC</b><br/>Cotizaciones según monto"]
@@ -15,16 +20,28 @@ flowchart TD
     J["<b>CONC_NC</b><br/>Conciliación tripartita"]
     K["<b>CIERRE_NC</b><br/>Cierre de compra"]
 
-    A --> B --> C --> D --> E --> F --> G --> H --> I --> J --> K
+    %% Flujo
+    T --> A --> B --> C --> D --> E --> F --> G --> H --> I --> J --> K
 
-    %% ==== NOTAS LATERALES ====
+    %% =====================================
+    %%           NOTAS LATERALES
+    %% =====================================
 
-    NVT["Aquí el jefe del área define si la compra es CRÍTICA.<br/>Esto rompe candados del flujo normal."] -.-> B
+    %% Validación técnica — donde se define si la compra es CRÍTICA
+    NVT["Aquí el jefe del área determina si la compra es <b>CRÍTICA</b>.<br/>Esto rompe candados del flujo normal."] -.-> B
 
-    NAUT["Rangos de autorización:<br/><br/>
-    • &lt; $20,000 → Encargado / Coordinador<br/>
-    • $20,000 – $50,000 → Jefe / Gerente de área<br/>
-    • &gt; $50,000 → Director General"] -.-> D
+    %% Autorización por montos — versión oficial según documentos
+    NAUT["<b>Rangos oficiales de autorización COMAQSA:</b><br/><br/>
+    • ≤ $20,000 → <b>Jefe de Área</b><br/>
+    • $20,001 – $50,000 → <b>Director de Área</b><br/>
+    • > $50,000 → <b>Director General</b><br/><br/>
+    *En Obra presupuestada no aplican montos: se autoriza por PU y saldo del concepto.*"] -.-> D
 
-    NCO["Conciliación tripartita: OC vs Recepción vs Factura.<br/><b>Solo aquí puede cerrarse la compra.</b>"] -.-> J
+    %% Conciliación tripartita — cierre solo aquí
+    NCO["Conciliación tripartita:<br/>OC vs Recepción vs Factura.<br/><b>Solo aquí puede cerrarse la compra.</b>"] -.-> J
+
+    %% =====================================
+    %%               ESTILOS
+    %% =====================================
+    classDef title fill=none,stroke=none,color=#000,font-size=20px,font-weight=bold;
 ```
