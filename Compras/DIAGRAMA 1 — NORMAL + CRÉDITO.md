@@ -1,14 +1,14 @@
 ```mermaid
 flowchart TD
 
-    A[REQ_NC<br>Requisición] --> B[VT_NC<br>Validación técnica]
-    B --> C[COT_NC<br>Cotizaciones según monto]
-    C --> D[AUT_NC<br>Autorización por montos]
-    D --> E[OC_NC<br>Orden de compra normal]
-    E --> F[ENT_NC<br>Entrega]
-    F --> G[REC_NC<br>Recepción formal]
-    G --> H[FAC_NC<br>Factura]
-    H --> I[PROG_NC<br>Programar pago (CxP)]
-    I --> J[CONC_NC<br>Conciliación tripartita]
-    J --> K[CIERRE_NC<br>Cierre de compra]
+    A["REQ_NC\nRequisicion"] --> B["VT_NC\nValidacion tecnica"]
+    B --> C["COT_NC\nCotizaciones segun monto"]
+    C --> D["AUT_NC\nAutorizacion por montos"]
+    D --> E["OC_NC\nOrden de compra normal"]
+    E --> F["ENT_NC\nEntrega"]
+    F --> G["REC_NC\nRecepcion formal"]
+    G --> H["FAC_NC\nFactura"]
+    H --> I["PROG_NC\nProgramar pago (CxP)"]
+    I --> J["CONC_NC\nConciliacion tripartita"]
+    J --> K["CIERRE_NC\nCierre de compra"]
 ```
