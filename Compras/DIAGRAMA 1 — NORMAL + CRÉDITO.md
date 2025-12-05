@@ -3,37 +3,34 @@ flowchart TD
 
     %% ==== NODOS PRINCIPALES ====
 
-    A["Requisición"] --> B["Validación técnica"] --> C["Cotizaciones según monto"] --> 
-    D["Autorización por montos"] --> E["Orden de compra normal"] --> 
-    F["Entrega"] --> G["Recepción formal"] --> H["Factura"] --> 
-    I["Programar pago (CxP)"] --> J["Conciliación tripartita"] --> K["Cierre de compra"]
+    A[Requisición] --> B[Validación técnica]
+    B --> C[Cotizaciones según monto]
+    C --> D[Autorización por montos]
+    D --> E[Orden de compra normal]
+    E --> F[Entrega]
+    F --> G[Recepción formal]
+    G --> H[Factura]
+    H --> I[Programar pago (CxP)]
+    I --> J[Conciliación tripartita]
+    J --> K[Cierre de compra]
 
-    %% ==== CÓDIGOS FUERA DEL RECUADRO (esquina superior izquierda) ====
+    %% ==== CÓDIGOS FUERA DEL RECUADRO (nodos pequeños arriba) ====
 
-    AC[REQ_NC]:::code --> A
-    BC[VT_NC]:::code --> B
-    CC[COT_NC]:::code --> C
-    DC[AUT_NC]:::code --> D
-    EC[OC_NC]:::code --> E
-    FC[ENT_NC]:::code --> F
-    GC[REC_NC]:::code --> G
-    HC[FAC_NC]:::code --> H
-    IC[PROG_NC]:::code --> I
-    JC[CONC_NC]:::code --> J
-    KC[CIERRE_NC]:::code --> K
+    AC((REQ_NC)) --> A
+    BC((VT_NC)) --> B
+    CC((COT_NC)) --> C
+    DC((AUT_NC)) --> D
+    EC((OC_NC)) --> E
+    FC((ENT_NC)) --> F
+    GC((REC_NC)) --> G
+    HC((FAC_NC)) --> H
+    IC((PROG_NC)) --> I
+    JC((CONC_NC)) --> J
+    KC((CIERRE_NC)) --> K
 
-    %% ==== NOTAS LATERALES NECESARIAS ÚNICAMENTE ====
+    %% ==== NOTAS LATERALES IMPORTANTES ====
 
-    subgraph NotaValidacion[" "]
-        NVT["Aquí el jefe del área define si la compra es <b>CRÍTICA</b>.<br/>Esto rompe candados del flujo normal,<br/>por eso este paso es clave."]
-    end
-    NVT -.-> B
+    NVT["Aquí el jefe del área define si la compra es CRÍTICA. Esto rompe candados del flujo normal, por eso este paso es clave."] -.-> B
 
-    subgraph NotaConc[" "]
-        NCO["Conciliación tripartita:<br/>OC vs Recepción vs Factura.<br/><b>Solo aquí puede cerrarse la compra.</b>"]
-    end
-    NCO -.-> J
-
-    %% ==== ESTILOS ====
-    classDef code fill=#ffffff,stroke=#ffffff,color=#444,font-size=10px;
+    NCO["Conciliación tripartita: OC vs Recepción vs Factura. Solo aquí puede cerrarse la compra."] -.-> J
 ```
