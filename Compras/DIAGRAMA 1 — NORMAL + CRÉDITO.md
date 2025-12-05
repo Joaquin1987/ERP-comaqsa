@@ -1,49 +1,26 @@
 ```mermaid
 flowchart TD
 
-    %% ==== NODOS PRINCIPALES ====
-
-    A[Requisición]
-    B[Validación técnica]
-    C[Cotizaciones según monto]
-    D[Autorización por montos]
-    E[Orden de compra normal]
-    F[Entrega]
-    G[Recepción formal]
-    H[Factura]
-    I[Programar pago CxP]
-    J[Conciliación tripartita]
-    K[Cierre de compra]
+    A["REQ_NC\nRequisición"]
+    B["VT_NC\nValidación técnica"]
+    C["COT_NC\nCotizaciones según monto"]
+    D["AUT_NC\nAutorización por montos"]
+    E["OC_NC\nOrden de compra normal"]
+    F["ENT_NC\nEntrega"]
+    G["REC_NC\nRecepción formal"]
+    H["FAC_NC\nFactura"]
+    I["PROG_NC\nProgramar pago CxP"]
+    J["CONC_NC\nConciliación tripartita"]
+    K["CIERRE_NC\nCierre de compra"]
 
     A --> B --> C --> D --> E --> F --> G --> H --> I --> J --> K
 
-    %% ==== ÍNDICES COMO TEXTO SUELTO ARRIBA DEL NODO ====
+    %% NOTA: Validación técnica = punto donde se define si es CRÍTICA
+    NVT["Aquí el jefe del área define si la compra es crítica.\nEsto rompe candados del flujo normal, por eso este paso es clave."] -.-> B
 
-    AC["REQ_NC"]:::invisible --- A
-    BC["VT_NC"]:::invisible --- B
-    CC["COT_NC"]:::invisible --- C
-    DC["AUT_NC"]:::invisible --- D
-    EC["OC_NC"]:::invisible --- E
-    FC["ENT_NC"]:::invisible --- F
-    GC["REC_NC"]:::invisible --- G
-    HC["FAC_NC"]:::invisible --- H
-    IC["PROG_NC"]:::invisible --- I
-    JC["CONC_NC"]:::invisible --- J
-    KC["CIERRE_NC"]:::invisible --- K
+    %% NOTA: Rangos de autorización por montos / responsables
+    NAUT["Rangos de autorización:\nMenos de 20,000 → Encargado / Coordinador\n20,000–50,000 → Jefe / Gerente de área\nMás de 50,000 → Director General"] -.-> D
 
-    %% ==== NOTAS LATERALES DE VALIDACIÓN Y CONCILIACIÓN ====
-
-    NVT["Aquí el jefe del área define si la compra es CRÍTICA.<br/>Esto rompe candados del flujo normal."] -.-> B
-
-    NCO["Conciliación tripartita:<br/>OC vs Recepción vs Factura.<br/><b>Solo aquí se puede cerrar la compra.</b>"] -.-> J
-
-    %% ==== NOTA DE AUTORIZACIÓN (MONTOS / RESPONSABLES) ====
-
-    NAUT["Rangos de autorización:<br/><br/>
-    • &lt; $20,000 → Encargado / Coordinador<br/>
-    • $20,000 – $50,000 → Jefe / Gerente de área<br/>
-    • &gt; $50,000 → Director General"] -.-> D
-
-    %% ==== ESTILO DEL NODO INVISIBLE ====
-    classDef invisible fill=none,stroke=none,color=#333,font-size=10px;
+    %% NOTA: Conciliación
+    NCO["Conciliación tripartita: OC vs Recepción vs Factura.\nSolo aquí puede cerrarse la compra."] -.-> J
 ```
