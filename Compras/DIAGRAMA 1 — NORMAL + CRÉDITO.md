@@ -1,13 +1,10 @@
 ```mermaid
 flowchart TD
-    %% =====================================
-    %%              TÍTULO
-    %% =====================================
-    T["<b>FLUJO NORMAL + CRÉDITO</b>"]:::title
 
-    %% =====================================
-    %%         NODOS PRINCIPALES
-    %% =====================================
+    %% TÍTULO
+    T["FLUJO NORMAL + CRÉDITO"]
+
+    %% NODOS PRINCIPALES
     A["<b>REQ_NC</b><br/>Requisición"]
     B["<b>VT_NC</b><br/>Validación técnica"]
     C["<b>COT_NC</b><br/>Cotizaciones según monto"]
@@ -20,28 +17,23 @@ flowchart TD
     J["<b>CONC_NC</b><br/>Conciliación tripartita"]
     K["<b>CIERRE_NC</b><br/>Cierre de compra"]
 
-    %% Flujo
+    %% FLUJO PRINCIPAL
     T --> A --> B --> C --> D --> E --> F --> G --> H --> I --> J --> K
 
-    %% =====================================
-    %%           NOTAS LATERALES
-    %% =====================================
+    %% NOTA: VALIDACIÓN TÉCNICA (CRÍTICO)
+    NVT["Aquí el jefe del área determina si la compra es crítica.<br/>Si la marca como CRÍTICA, se rompen candados del flujo normal y se activa el flujo crítico."] -.-> B
 
-    %% Validación técnica — donde se define si la compra es CRÍTICA
-    NVT["Aquí el jefe del área determina si la compra es <b>CRÍTICA</b>.<br/>Esto rompe candados del flujo normal."] -.-> B
+    %% NOTA: AUTORIZACIÓN POR MONTOS (RANGOS OFICIALES)
+    NAUT["Rangos de autorización COMAQSA:<br/><br/>
+    - Hasta 20,000 → Jefe de Área<br/>
+    - De 20,001 a 50,000 → Director de Área<br/>
+    - Más de 50,000 → Director General<br/><br/>
+    En obra con concepto presupuestado no aplican montos: se autoriza por precio unitario y saldo del concepto."] -.-> D
 
-    %% Autorización por montos — versión oficial según documentos
-    NAUT["<b>Rangos oficiales de autorización COMAQSA:</b><br/><br/>
-    • ≤ $20,000 → <b>Jefe de Área</b><br/>
-    • $20,001 – $50,000 → <b>Director de Área</b><br/>
-    • > $50,000 → <b>Director General</b><br/><br/>
-    *En Obra presupuestada no aplican montos: se autoriza por PU y saldo del concepto.*"] -.-> D
-
-    %% Conciliación tripartita — cierre solo aquí
-    NCO["Conciliación tripartita:<br/>OC vs Recepción vs Factura.<br/><b>Solo aquí puede cerrarse la compra.</b>"] -.-> J
-
-    %% =====================================
-    %%               ESTILOS
-    %% =====================================
-    classDef title fill=none,stroke=none,color=#000,font-size=20px,font-weight=bold;
+    %% NOTA: CONCILIACIÓN
+    NCO["Conciliación tripartita:<br/>
+    - OC vs Recepción<br/>
+    - OC vs Factura<br/>
+    - Factura vs Pago o CxP<br/><br/>
+    Solo cuando los tres coinciden se puede cerrar la compra."] -.-> J
 ```
