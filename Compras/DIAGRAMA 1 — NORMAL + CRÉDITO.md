@@ -1,51 +1,39 @@
 ```mermaid
 flowchart TD
 
-    A["Requisici&oacute;n<br/><i>REQ_NC</i>"] --> 
-    B["Validaci&oacute;n t&eacute;cnica<br/><i>VT_NC</i>"] --> 
-    C["Cotizaciones seg&uacute;n monto<br/><i>COT_NC</i>"] --> 
-    D["Autorizaci&oacute;n por montos<br/><i>AUT_NC</i>"] --> 
-    E["Orden de compra normal<br/><i>OC_NC</i>"] --> 
-    F["Entrega<br/><i>ENT_NC</i>"] --> 
-    G["Recepci&oacute;n formal<br/><i>REC_NC</i>"] --> 
-    H["Factura<br/><i>FAC_NC</i>"] --> 
-    I["Programar pago (CxP)<br/><i>PROG_NC</i>"] --> 
-    J["Conciliaci&oacute;n tripartita<br/><i>CONC_NC</i>"] --> 
-    K["Cierre de compra<br/><i>CIERRE_NC</i>"]
+    %% ==== NODOS PRINCIPALES ====
 
-    %% Notas laterales (subgraphs para explicaciones)
-    subgraph NotaA[" "]
-        NA["Requiere: solicitud válida, insumos, obra/taller"]
-    end
-    NA -.-> A
+    A["Requisición"] --> B["Validación técnica"] --> C["Cotizaciones según monto"] --> 
+    D["Autorización por montos"] --> E["Orden de compra normal"] --> 
+    F["Entrega"] --> G["Recepción formal"] --> H["Factura"] --> 
+    I["Programar pago (CxP)"] --> J["Conciliación tripartita"] --> K["Cierre de compra"]
 
-    subgraph NotaB[" "]
-        NB["Validación técnica: confirma cantidades y especificaciones"]
-    end
-    NB -.-> B
+    %% ==== CÓDIGOS FUERA DEL RECUADRO (esquina superior izquierda) ====
 
-    subgraph NotaC[" "]
-        NC["Cotizaciones: mínimo 2 si el monto lo requiere"]
-    end
-    NC -.-> C
+    AC[REQ_NC]:::code --> A
+    BC[VT_NC]:::code --> B
+    CC[COT_NC]:::code --> C
+    DC[AUT_NC]:::code --> D
+    EC[OC_NC]:::code --> E
+    FC[ENT_NC]:::code --> F
+    GC[REC_NC]:::code --> G
+    HC[FAC_NC]:::code --> H
+    IC[PROG_NC]:::code --> I
+    JC[CONC_NC]:::code --> J
+    KC[CIERRE_NC]:::code --> K
 
-    subgraph NotaD[" "]
-        ND["Autorización según rangos COMAQSA"]
-    end
-    ND -.-> D
+    %% ==== NOTAS LATERALES NECESARIAS ÚNICAMENTE ====
 
-    subgraph NotaE[" "]
-        NE["OC normal: precio, condiciones y proveedor confirmados"]
+    subgraph NotaValidacion[" "]
+        NVT["Aquí el jefe del área define si la compra es <b>CRÍTICA</b>.<br/>Esto rompe candados del flujo normal,<br/>por eso este paso es clave."]
     end
-    NE -.-> E
+    NVT -.-> B
 
-    subgraph NotaG[" "]
-        NG["Recepción formal: genera base para factura y conciliación"]
+    subgraph NotaConc[" "]
+        NCO["Conciliación tripartita:<br/>OC vs Recepción vs Factura.<br/><b>Solo aquí puede cerrarse la compra.</b>"]
     end
-    NG -.-> G
+    NCO -.-> J
 
-    subgraph NotaJ[" "]
-        NJ["Conciliación: OC vs Recepción vs Factura"]
-    end
-    NJ -.-> J
+    %% ==== ESTILOS ====
+    classDef code fill=#ffffff,stroke=#ffffff,color=#444,font-size=10px;
 ```
