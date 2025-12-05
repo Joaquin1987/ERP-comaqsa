@@ -10,11 +10,11 @@ flowchart TD
     E --> F[Entrega]
     F --> G[Recepción formal]
     G --> H[Factura]
-    H --> I[Programar pago (CxP)]
+    H --> I[Programar pago CxP]
     I --> J[Conciliación tripartita]
     J --> K[Cierre de compra]
 
-    %% ==== CÓDIGOS FUERA DEL RECUADRO (nodos pequeños arriba) ====
+    %% ==== CÓDIGOS FUERA DEL RECUADRO ====
 
     AC((REQ_NC)) --> A
     BC((VT_NC)) --> B
@@ -28,7 +28,7 @@ flowchart TD
     JC((CONC_NC)) --> J
     KC((CIERRE_NC)) --> K
 
-    %% ==== NOTAS LATERALES IMPORTANTES ====
+    %% ==== NOTAS LATERALES ====
 
     NVT["Aquí el jefe del área define si la compra es CRÍTICA. Esto rompe candados del flujo normal, por eso este paso es clave."] -.-> B
 
