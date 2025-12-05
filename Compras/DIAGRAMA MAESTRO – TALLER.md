@@ -19,23 +19,21 @@ flowchart TD
     CRIT{"¿Compra crítica?"}
     AUT --> CRIT
 
-    %% RAMAS DE LA DECISIÓN (SOLO DOS FLECHAS)
+    %% RAMAS DE LA DECISIÓN
     NORM["Compra NORMAL"]
     COMP_CRIT["Compra CRÍTICA"]
 
     CRIT -->|"No"| NORM
     CRIT -->|"Sí"| COMP_CRIT
 
-    %% NOTA: QUÉ IMPLICA MARCAR COMO CRÍTICA (PEGADA A COMPRA CRÍTICA)
+    %% NOTA: QUÉ IMPLICA MARCAR COMO CRÍTICA
     NOTA_CRIT["Al marcar una compra como CRÍTICA el sistema permite:<br/>
     - Generar OC preliminar<br/>
     - Recibir con recepción preliminar<br/>
     - Entregar o pagar antes de autorización completa<br/>
     - Hacer autorización por montos de forma retroactiva"] -.-> COMP_CRIT
 
-    %% =====================================
     %% RAMA NORMAL (TALLER)
-    %% =====================================
 
     OC_N["OC normal"]
     NORM --> OC_N
@@ -61,9 +59,7 @@ flowchart TD
     P_N -->|"Contado"| NCT_PAGO
     NCT_PAGO --> NCT_ENT --> NCT_REC --> NCT_FAC
 
-    %% =====================================
     %% RAMA CRÍTICA (TALLER)
-    %% =====================================
 
     OC_PRE["OC preliminar<br/>(compra crítica)"]
     COMP_CRIT --> OC_PRE
@@ -97,17 +93,15 @@ flowchart TD
     P_C -->|"Contado"| CT_EXIGE
     CT_EXIGE --> CT_PAGO_ANT --> CT_ENT --> CT_REC --> CT_PREC --> CT_AUT --> CT_OCN --> CT_PAGO_COMP --> CT_FAC
 
-    %% =====================================
-    %% CONCILIACIÓN Y CIERRE (COMÚN A TODO)
-    %% =====================================
+    %% CONCILIACIÓN Y CIERRE
 
     CONC["Conciliación tripartita<br/>OC vs Recepción vs Factura vs Pago/CxP"]
     CIERRE["Cierre de compra"]
 
-    NC_PROG --> CONC      %% Normal + crédito
-    NCT_FAC --> CONC      %% Normal + contado
-    CC_PROG --> CONC      %% Crítico + crédito
-    CT_FAC --> CONC       %% Crítico + contado
+    NC_PROG --> CONC
+    NCT_FAC --> CONC
+    CC_PROG --> CONC
+    CT_FAC --> CONC
 
     CONC --> CIERRE
 ```
