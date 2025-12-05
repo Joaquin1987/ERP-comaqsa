@@ -10,7 +10,7 @@ flowchart TD
 
     T --> R --> VT
 
-    %% DECISIÓN: ¿COMPRA CRÍTICA?
+    %% ¿COMPRA CRÍTICA?
     CRIT{"¿Compra crítica?"}
     VT --> CRIT
 
@@ -33,8 +33,8 @@ flowchart TD
     ECON_CP_N["Validación económica (concepto presupuestado)<br/><br/>
     - Validar PU real vs PU presupuestado<br/>
     - Validar saldo del concepto<br/><br/>
-    Si PU real ≤ PU presupuestado y saldo suficiente → autoriza sistema<br/>
-    Si PU real > PU presupuestado → autoriza área de obra<br/>
+    Si PU ≤ PU presupuestado y saldo suficiente → autoriza sistema<br/>
+    Si PU > PU presupuestado → autoriza área de obra<br/>
     Si saldo insuficiente → sobreejercicio (rangos 20k / 50k / DG)"]
 
     ECON_NOCP_N["Validación económica (sin concepto)<br/><br/>
@@ -77,10 +77,31 @@ flowchart TD
     %% RAMA CRÍTICA (OBRA)
     %% =====================================
 
-    %% Cotizaciones opcionales por urgencia
-    COT_C["Cotizaciones<br/>(opcionales por urgencia)"]
-    COMP_CRIT --> COT_C
+    %% 1) Primero: concepto o no, y validación económica INICIAL
+    TIPO_C{"¿Concepto presupuestado de obra?"}
+    COMP_CRIT --> TIPO_C
 
+    ECON_CP_C["Validación económica inicial (concepto)<br/><br/>
+    - Validar PU estimado vs PU presupuestado<br/>
+    - Validar saldo disponible del concepto<br/><br/>
+    Puede autorizarse de forma provisional para operar crítico<br/>
+    (sobreejercicio sigue usando rangos 20k / 50k / DG)"]
+
+    ECON_NOCP_C["Validación económica inicial (sin concepto)<br/><br/>
+    - Aplicar reglas de montos tipo Taller<br/>
+    Hasta 20,000 → Jefe de área<br/>
+    20,001 a 50,000 → Director de área<br/>
+    &gt; 50,000 → Director general"]
+
+    TIPO_C -->|"Sí, es concepto"| ECON_CP_C
+    TIPO_C -->|"No, no es concepto"| ECON_NOCP_C
+
+    %% 2) Cotizaciones iniciales opcionales por urgencia
+    COT_C["Cotizaciones<br/>(opcionales por urgencia)"]
+    ECON_CP_C --> COT_C
+    ECON_NOCP_C --> COT_C
+
+    %% 3) OC preliminar
     OC_PRE["OC preliminar<br/>(compra crítica)"]
     COT_C --> OC_PRE
 
@@ -92,8 +113,7 @@ flowchart TD
     CC_REC["Recepción preliminar"]
     CC_PREC["Definir precio final"]
 
-    %% Validación económica y completar cotizaciones ANTES de autorizar
-    CC_ECON["Validación económica de obra<br/><br/>
+    CC_ECON["Validación económica FINAL de obra<br/><br/>
     - Si es concepto: validar PU final y saldo del concepto<br/>
     - Si no es concepto: aplicar rangos de montos (Taller)<br/><br/>
     Además:<br/>
@@ -114,7 +134,7 @@ flowchart TD
     CT_REC["Recepción preliminar o formal"]
     CT_PREC["Definir precio final"]
 
-    CT_ECON["Validación económica de obra<br/><br/>
+    CT_ECON["Validación económica FINAL de obra<br/><br/>
     - Si es concepto: validar PU final y saldo del concepto<br/>
     - Si no es concepto: aplicar rangos de montos (Taller)<br/><br/>
     Además:<br/>
@@ -135,8 +155,9 @@ flowchart TD
     - Generar OC preliminar<br/>
     - Recibir con recepción preliminar<br/>
     - Entregar o pagar antes de autorización completa<br/>
-    - Hacer autorización por montos de forma retroactiva<br/>
-    (pero siempre validando PU y presupuesto de obra antes de convertir a OC normal)"] -.-> COMP_CRIT
+    - Hacer autorización por montos de forma retroactiva<br/><br/>
+    Pero siempre debe validarse PU y presupuesto de obra<br/>
+    antes de convertir a OC normal."] -.-> COMP_CRIT
 
     %% =====================================
     %% CONCILIACIÓN Y CIERRE (COMÚN)
