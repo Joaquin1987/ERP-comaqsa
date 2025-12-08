@@ -1,10 +1,9 @@
 ```mermaid
 flowchart TD
 
-%% Título superior sin encimarse
-TITULO["Flujo 1 - NORMAL + CREDITO - TALLER"]:::titulo
+T["Flujo 1 - NORMAL + CREDITO - TALLER"]
 
-subgraph F1[" "]  %% subgraph vacío solo para fondo
+subgraph F1[" "]
 direction TB
 
 R1["1. Requisicion  
@@ -13,19 +12,19 @@ Estado: Pendiente"]
 
 R2{"2. Validacion Tecnica  
 Actor: Jefe de area  
-¿Es critica?"}
+Es critica?"}
 
 Rcrit["Se va al flujo critico"]
 
 R3["3. Cotizaciones  
 <= 5k: 1 cotizacion  
-5–15k: 2 cotizaciones  
->15k: 3 cotizaciones"]
+5-15k: 2 cotizaciones  
+> 15k: 3 cotizaciones"]
 
 R4["4. Autorizacion por montos  
-<=20k: Jefe de area  
-20–50k: Director  
->50k: Director General"]
+<= 20k: Jefe de area  
+20-50k: Director  
+> 50k: Director General"]
 
 R5["5. OC Normal  
 Precio final definido"]
@@ -48,8 +47,7 @@ Solo con conciliacion completa"]
 
 end
 
-%% Flow
-TITULO --> R1
+T --> R1
 R1 --> R2
 R2 -->|No critica| R3
 R2 -->|Critica| Rcrit
@@ -61,7 +59,4 @@ R7 --> R8
 R8 --> R9
 R9 --> R10
 R10 --> R11
-
-%% Estilos
-classDef titulo fill:#ffffff,stroke:none,font-size:20px,font-weight:bold;
 ```
