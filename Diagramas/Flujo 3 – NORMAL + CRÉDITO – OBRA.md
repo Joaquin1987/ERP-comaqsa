@@ -1,44 +1,68 @@
-Flujo 3 – NORMAL + CRÉDITO – OBRA
+✅ Flujo 3 — NORMAL + CRÉDITO — OBRA
+
+(Documento generado con el mismo estilo y estructura del archivo que subiste)
 
 Este flujo describe el proceso de compras cuando la requisición no es crítica, pertenece a Obra, y el método de pago es crédito.
 
-El elemento clave de este flujo es que no existe pago antes de la entrega y que la validación económica depende de si la compra corresponde o no a un concepto presupuestado de obra.
+El elemento clave de este flujo es que NO hay pago antes de la entrega, y que en Obra la validación económica depende del concepto presupuestado, su PU y su saldo disponible, salvo cuando la compra NO corresponde a un concepto.
 
-La compra solo se cierra cuando se cumple la Conciliación Tripartita:
+La compra solo se cierra cuando se completa la Conciliación Tripartita:
 
 OC vs Recepción
 
 OC vs Factura
 
-Factura vs CxP
-
-A continuación se describe el proceso paso a paso:
+Factura vs CxP (programación de pago)
 
 1. Requisición
 
-El solicitante genera una requisición. Esta inicia en estado Pendiente.
-Debe incluir: descripción, cantidades, especificaciones, si aplica a un concepto presupuestado de obra, y motivo.
+Actor: Solicitante
+Estado: Pendiente
 
-2. Validación Técnica
+La requisición debe indicar:
 
-El Jefe de Área revisa la requisición.
-Valida necesidad, cantidades, especificaciones y si corresponde a un concepto presupuestado.
+descripción,
 
-Si aquí se marca Crítica, el flujo abandona esta ruta y pasa al flujo Crítico + Crédito – Obra.
+cantidades,
 
-3. Cotizaciones
+especificaciones,
 
-Según el monto de la requisición:
+si corresponde a un concepto presupuestado,
 
-≤ 5,000 → 1 cotización
+motivo de la solicitud.
 
-5,001–15,000 → 2 cotizaciones
+2. Validación técnica
 
-15,000 → 3 cotizaciones + comparativo
+Actor: Jefe de área**
+Estado: Requisición validada
 
-4. Validación Económica – Obra
+Acciones:
 
-Se valida según si la compra corresponde o no a un concepto presupuestado.
+confirmar necesidad,
+
+validar especificaciones,
+
+ajustar cantidades,
+
+confirmar si aplica a concepto presupuestado.
+
+Candado importante:
+
+Si se marca como crítica → se abandona este flujo y se pasa al flujo crítico de Obra.
+
+3. Cotizaciones según monto
+
+Reglas generales:
+
+≤ 5k → 1 cotización
+
+5–15k → 2 cotizaciones
+
+15k → 3 cotizaciones + comparativo
+
+4. Validación económica (Obra)
+
+Aquí se determina si la compra corresponde o no a un concepto presupuestado, lo cual cambia completamente la autorización:
 
 4.1 Si SÍ es concepto presupuestado
 
@@ -48,60 +72,79 @@ PU real ≤ PU presupuestado
 
 Saldo del concepto suficiente
 
-Resultados:
+Resultado:
 
-PU ≤ PU presupuestado y saldo suficiente → Autorización automática
+Si PU y saldo son correctos → autorización automática del sistema
 
-PU > PU presupuestado → Autorización del área de obra
+Si PU > PU presupuestado → requiere autorización del área de obra
 
-Saldo insuficiente → Sobreejercicio (20k / 50k / DG)
+Si saldo insuficiente → autorización de sobreejercicio (20k / 50k / DG)
 
 4.2 Si NO es concepto presupuestado
 
-Aplican rangos tipo Taller:
+Se aplican los rangos de Taller:
 
 ≤ 20k → Jefe de Área
 
-20k–50k → Director de Área
+20–50k → Director
 
 50k → Director General
 
 5. Orden de Compra (OC) Normal
 
-Se genera la OC normal con precio final definido.
-No puede generarse sin validación económica previa.
+Se genera una OC normal con precio final definido.
 
-6. Entrega (Crédito)
+Candados:
 
-El proveedor entrega los bienes o ejecuta el servicio después de emitirse la OC normal.
-En flujo normal + crédito no existe pago antes de la entrega.
+No puede emitirse sin validación económica previa (PU+saldo o rangos).
 
-7. Recepción Formal
+6. Entrega del proveedor
+
+El proveedor entrega materiales o ejecuta el servicio posterior a la OC normal.
+
+Candados:
+
+En crédito no existe pago previo, por lo tanto la entrega es posterior a la OC.
+
+7. Recepción formal
 
 Se valida:
 
-Cantidades vs OC
+cantidades,
 
-Calidad
+calidad,
 
-Coincidencia contra concepto presupuestado (si aplica)
+correspondencia exacta con la OC,
+
+correspondencia con el concepto (si aplica).
 
 8. Factura
 
 Debe coincidir con:
 
-La OC normal
+la OC,
 
-La recepción formal
+la recepción,
 
-Cualquier diferencia detiene el flujo.
+el precio unitario presupuestado (si aplica).
 
-9. Programación de Pago (CxP)
+Cualquier diferencia detiene el flujo hasta corregirla.
 
-Se genera el documento por pagar y se agenda según días de crédito.
-No se puede programar pago sin factura válida.
+9. Programación de pago (CxP)
 
-10. Conciliación Tripartita
+Acciones:
+
+se genera el documento por pagar,
+
+se integra al calendario según días de crédito.
+
+Candado:
+
+no se genera CxP sin factura válida.
+
+10. Conciliación tripartita
+
+Se debe verificar estrictamente:
 
 OC vs Recepción
 
@@ -109,12 +152,13 @@ OC vs Factura
 
 Factura vs CxP
 
-Solo con estas tres coincidencias la compra puede cerrarse.
+Sin esta conciliación, no puede cerrarse la compra.
 
-11. Cierre
+11. Cierre de la compra
 
-La OC pasa a estado Cerrada cuando no quedan diferencias.
+La compra se cierra únicamente cuando la conciliación está completa.
 
+Diagrama del flujo (idéntico estilo al que subiste)
 flowchart TD
 
 T["Flujo 3 - NORMAL + CREDITO - OBRA"]
@@ -122,43 +166,63 @@ T["Flujo 3 - NORMAL + CREDITO - OBRA"]
 subgraph F3[" "]
 direction TB
 
-R1["1. Requisición<br/>Actor: Solicitante<br/>Estado: Pendiente"]
+R1["1. Requisicion  
+Actor: Solicitante  
+Estado: Pendiente"]
 
-R2{"2. Validación Técnica<br/>Actor: Jefe de área<br/>¿Es crítica?"}
+R2{"2. Validacion Tecnica  
+Actor: Jefe de area  
+¿Es critica?"}
 
-Rcrit["Se va al flujo crítico de Obra"]
+Rcrit["Se va al flujo critico de Obra"]
 
-R3["3. Cotizaciones<br/>&lt;= 5k: 1 cotización<br/>5-15k: 2 cotizaciones<br/>&gt; 15k: 3 cotizaciones + comparativo"]
+R3["3. Cotizaciones  
+<= 5k: 1 cotizacion  
+5-15k: 2 cotizaciones  
+> 15k: 3 cotizaciones"]
 
-R4{"4. Validación económica<br/>¿Es concepto presupuestado?"}
+R4{"4. Validacion economica  
+¿Es concepto presupuestado?"}
 
-R4a["Si es concepto:<br/>PU real vs PU presupuestado<br/>+ saldo del concepto"]
+R4a["Si es concepto:  
+PU <= PU presupuestado  
+Saldo suficiente → Aprobacion automatica  
+PU > PU presupuestado → Autorizacion area Obra  
+Saldo insuficiente → Sobreejercicio"]
 
-R4b["Si NO es concepto:<br/>Autorización por montos<br/>&lt;=20k Jefe<br/>20-50k Director<br/>&gt;50k DG"]
+R4b["Si NO es concepto:  
+<= 20k: Jefe de area  
+20-50k: Director  
+> 50k: Director General"]
 
-R5["5. OC Normal<br/>Precio final definido"]
+R5["5. OC Normal  
+Precio final definido"]
 
-R6["6. Entrega del proveedor<br/>(crédito, sin pago previo)"]
+R6["6. Entrega del proveedor"]
 
-R7["7. Recepción formal<br/>Validación de cantidad, calidad y concepto"]
+R7["7. Recepcion formal  
+Validacion de cantidad, calidad y concepto"]
 
-R8["8. Factura<br/>Debe coincidir con OC y recepción"]
+R8["8. Factura  
+Debe coincidir con OC y recepcion"]
 
-R9["9. Programación de pago (CxP)"]
+R9["9. Programacion de pago (CxP)"]
 
-R10["10. Conciliación tripartita<br/>OC vs Recepción vs Factura vs CxP"]
+R10["10. Conciliacion tripartita  
+OC vs Recepcion vs Factura vs CxP"]
 
-R11["11. Cierre de OC<br/>Solo con conciliación completa"]
+R11["11. Cierre de OC  
+Solo con conciliacion completa"]
 
 end
 
 T --> R1
 R1 --> R2
-R2 -->|No crítica| R3
-R2 -->|Crítica| Rcrit
+R2 -->|No critica| R3
+R2 -->|Critica| Rcrit
 R3 --> R4
-R4 -->|Es concepto| R4a
-R4 -->|No es concepto| R4b
+R4 -->|Concepto| R4a
+R4 -->|No concepto| R4b
 R4a --> R5
 R4b --> R5
 R5 --> R6
