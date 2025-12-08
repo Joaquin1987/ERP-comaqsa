@@ -1,164 +1,82 @@
-✅ Flujo 3 — NORMAL + CRÉDITO — OBRA
+# Flujo 3 — NORMAL + CRÉDITO — OBRA
 
-(Documento generado con el mismo estilo y estructura del archivo que subiste)
+Este flujo describe el proceso de compras cuando la requisición **no es crítica**, pertenece a **Obra**, y el método de pago es **crédito**.  
+El punto clave es que en Obra la validación económica depende de si la compra corresponde a un **concepto presupuestado** o no.  
+La compra solo se cierra cuando se cumple la **Conciliación Tripartita**:
 
-Este flujo describe el proceso de compras cuando la requisición no es crítica, pertenece a Obra, y el método de pago es crédito.
+- OC vs Recepción  
+- OC vs Factura  
+- Factura vs CxP  
 
-El elemento clave de este flujo es que NO hay pago antes de la entrega, y que en Obra la validación económica depende del concepto presupuestado, su PU y su saldo disponible, salvo cuando la compra NO corresponde a un concepto.
+A continuación se describe el proceso paso a paso:
 
-La compra solo se cierra cuando se completa la Conciliación Tripartita:
+### **1. Requisición**  
+El solicitante genera una requisición. Esta inicia en estado *Pendiente*.  
+Debe indicar si corresponde a un **concepto presupuestado** de Obra.
 
-OC vs Recepción
+### **2. Validación técnica**  
+El Jefe de Área revisa si la compra es crítica o no y valida cantidades y especificaciones.  
+Si se marca como **crítica**, el flujo abandona este proceso.
 
-OC vs Factura
+### **3. Cotizaciones**  
+Según el monto:  
+- ≤ 5k → 1 cotización  
+- 5–15k → 2 cotizaciones  
+- > 15k → 3 cotizaciones + comparativo  
 
-Factura vs CxP (programación de pago)
+### **4. Validación económica (Obra)**  
 
-1. Requisición
+#### **Si SÍ es concepto presupuestado:**  
+Validaciones:  
+- PU real ≤ PU presupuestado  
+- Saldo suficiente  
 
-Actor: Solicitante
-Estado: Pendiente
+Resultados:  
+- PU y saldo correctos → **Autorización automática**  
+- PU > PU presupuestado → Autorización del área de obra  
+- Saldo insuficiente → Sobreejercicio (20k / 50k / DG)
 
-La requisición debe indicar:
+#### **Si NO es concepto presupuestado:**  
+Aplican rangos de Taller:  
+- ≤ 20k → Jefe de Área  
+- 20–50k → Director  
+- > 50k → Director General  
 
-descripción,
+### **5. Orden de Compra (OC) Normal**  
+Se genera una OC **con precio final definido**.  
+Debe existir validación económica previa (PU+saldo o rangos).
 
-cantidades,
+### **6. Entrega del proveedor**  
+El proveedor entrega bienes o servicios **después de la OC normal**.  
+En crédito no existe pago previo.
 
-especificaciones,
+### **7. Recepción formal**  
+Se valida cantidad y calidad contra la OC y, si aplica, contra el concepto.
 
-si corresponde a un concepto presupuestado,
+### **8. Factura**  
+La factura debe coincidir con la OC y la recepción.  
+Cualquier diferencia detiene el proceso.
 
-motivo de la solicitud.
+### **9. Programación de pago (CxP)**  
+Se genera el documento por pagar basado en la factura validada.  
+Se programa según el crédito pactado.
 
-2. Validación técnica
+### **10. Conciliación tripartita**  
+Se verifica:  
+- OC vs Recepción  
+- OC vs Factura  
+- Factura vs CxP  
 
-Actor: Jefe de área**
-Estado: Requisición validada
+Sin estas coincidencias no puede cerrarse la compra.
 
-Acciones:
+### **11. Cierre de la compra**  
+La compra se cierra solo cuando la conciliación está completa.
 
-confirmar necesidad,
+---
 
-validar especificaciones,
+## **Diagrama del flujo**
 
-ajustar cantidades,
-
-confirmar si aplica a concepto presupuestado.
-
-Candado importante:
-
-Si se marca como crítica → se abandona este flujo y se pasa al flujo crítico de Obra.
-
-3. Cotizaciones según monto
-
-Reglas generales:
-
-≤ 5k → 1 cotización
-
-5–15k → 2 cotizaciones
-
-15k → 3 cotizaciones + comparativo
-
-4. Validación económica (Obra)
-
-Aquí se determina si la compra corresponde o no a un concepto presupuestado, lo cual cambia completamente la autorización:
-
-4.1 Si SÍ es concepto presupuestado
-
-Validaciones:
-
-PU real ≤ PU presupuestado
-
-Saldo del concepto suficiente
-
-Resultado:
-
-Si PU y saldo son correctos → autorización automática del sistema
-
-Si PU > PU presupuestado → requiere autorización del área de obra
-
-Si saldo insuficiente → autorización de sobreejercicio (20k / 50k / DG)
-
-4.2 Si NO es concepto presupuestado
-
-Se aplican los rangos de Taller:
-
-≤ 20k → Jefe de Área
-
-20–50k → Director
-
-50k → Director General
-
-5. Orden de Compra (OC) Normal
-
-Se genera una OC normal con precio final definido.
-
-Candados:
-
-No puede emitirse sin validación económica previa (PU+saldo o rangos).
-
-6. Entrega del proveedor
-
-El proveedor entrega materiales o ejecuta el servicio posterior a la OC normal.
-
-Candados:
-
-En crédito no existe pago previo, por lo tanto la entrega es posterior a la OC.
-
-7. Recepción formal
-
-Se valida:
-
-cantidades,
-
-calidad,
-
-correspondencia exacta con la OC,
-
-correspondencia con el concepto (si aplica).
-
-8. Factura
-
-Debe coincidir con:
-
-la OC,
-
-la recepción,
-
-el precio unitario presupuestado (si aplica).
-
-Cualquier diferencia detiene el flujo hasta corregirla.
-
-9. Programación de pago (CxP)
-
-Acciones:
-
-se genera el documento por pagar,
-
-se integra al calendario según días de crédito.
-
-Candado:
-
-no se genera CxP sin factura válida.
-
-10. Conciliación tripartita
-
-Se debe verificar estrictamente:
-
-OC vs Recepción
-
-OC vs Factura
-
-Factura vs CxP
-
-Sin esta conciliación, no puede cerrarse la compra.
-
-11. Cierre de la compra
-
-La compra se cierra únicamente cuando la conciliación está completa.
-
-Diagrama del flujo (idéntico estilo al que subiste)
+```mermaid
 flowchart TD
 
 T["Flujo 3 - NORMAL + CREDITO - OBRA"]
@@ -231,3 +149,4 @@ R7 --> R8
 R8 --> R9
 R9 --> R10
 R10 --> R11
+
