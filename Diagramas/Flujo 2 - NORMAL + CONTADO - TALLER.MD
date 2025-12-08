@@ -1,4 +1,4 @@
-mermaid
+```mermaid
 flowchart TD
 
 T["Flujo 2 - NORMAL + CONTADO - TALLER"]
@@ -61,3 +61,4 @@ R7 --> R8
 R8 --> R9
 R9 --> R10
 R10 --> R11
+```
