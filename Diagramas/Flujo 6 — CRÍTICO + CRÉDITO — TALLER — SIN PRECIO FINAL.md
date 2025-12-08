@@ -1,210 +1,199 @@
-Flujo 6 — CRÍTICO + CRÉDITO — TALLER — SIN PRECIO FINAL
+# Flujo 6 — CRÍTICO + CRÉDITO — TALLER — SIN PRECIO FINAL
 
-Este flujo describe el proceso de compras cuando la requisición es crítica, pertenece al Taller, el método de pago es crédito y no existe precio final al inicio.
+(Explicación + Diagrama listo para GitHub)
+
+Este flujo describe el proceso de compras cuando la requisición es **crítica**, pertenece al **Taller**, el método de pago es **crédito** y **no existe precio final al inicio**.
+
 Los elementos clave de este flujo son:
 
-Se puede avanzar sin precio final y con cotizaciones incompletas.
+- Se puede avanzar **sin precio final**
+- Se usa **OC preliminar** (obligatoria)
+- El proveedor puede **entregar sin pago**
+- Existe **recepción preliminar**
+- La autorización por montos es **retroactiva**
+- La compra solo se cierra con **Conciliación Tripartita**:
 
-Se usa OC preliminar (obligatoria en compras críticas).
+  - OC vs Recepción  
+  - OC vs Factura  
+  - Factura vs CxP  
 
-El proveedor puede entregar sin pago y sin autorización completa.
+---
 
-Primero hay recepción preliminar, después recepción formal.
+## **1. Requisición**
 
-La autorización por montos es retroactiva, una vez conocido el precio final.
+El solicitante genera una requisición con descripción, cantidades, especificaciones y motivo.  
+La requisición inicia en estado **Pendiente**.
 
-La compra solo se cierra cuando se cumple la Conciliación Tripartita:
+---
 
-OC vs Recepción
+## **2. Validación técnica (se marca CRÍTICA)**
 
-OC vs Factura
+El Jefe de Área revisa la solicitud y aquí la compra se marca como **CRÍTICA**.  
+El sistema registra:
 
-Factura vs CxP
+- Responsable que marcó crítica  
+- Motivo  
+- Urgencia operativa  
 
-A continuación se describe el proceso paso a paso:
+Esto habilita:
 
-1. Requisición
+- OC preliminar  
+- Recepción preliminar  
+- Entrega sin autorización completa  
+- Autorización retroactiva  
 
-El solicitante genera una requisición con descripción, cantidades, especificaciones y motivo.
-La requisición inicia en estado Pendiente y es obligatoria para cualquier compra.
+---
 
-2. Validación técnica (se marca CRÍTICA)
+## **3. Cotizaciones (opcionales por urgencia)**
 
-El Jefe de Área revisa la necesidad, especificaciones y cantidades.
-En este punto la compra se marca como CRÍTICA y el sistema registra:
-
-Responsable que marcó crítica.
-
-Motivo y urgencia operativa.
-
-Al marcarla crítica se habilita el uso de OC preliminar, recepción preliminar, entrega sin autorización completa y autorización retroactiva.
-
-3. Cotizaciones (opcionales por urgencia)
-
-Al ser una compra crítica, el sistema no exige completar cotizaciones al inicio.
-
+Como la compra es crítica, el sistema **NO exige** cotizaciones completas al inicio.  
 Puede haber:
 
-0 cotizaciones (solo urgencia justificada).
+- 0 cotizaciones  
+- 1 cotización  
+- Varias  
 
-1 cotización.
+Las faltantes se completan más adelante o se justifican.
 
-O más, si dio tiempo de cotizar.
+---
 
-Las cotizaciones faltantes se completarán después o se justificarán formalmente.
+## **4. Orden de Compra (OC) preliminar**
 
-4. Orden de Compra (OC) preliminar
+Se genera una **OC preliminar** porque **NO existe precio final**.  
+Por reglas COMAQSA:
 
-Se genera una OC preliminar, porque no existe precio final todavía, por lo que no puede emitirse una OC normal.
+- No puede existir OC normal sin precio final  
+- La OC preliminar **no permite facturar**  
+- Solo sirve para adelantar la operación  
 
-La OC preliminar:
+---
 
-Es obligatoria en compras críticas.
+## **5. Entrega sin pago (crédito)**
 
-Permite separar mercancía o solicitar servicio inmediato.
+El proveedor entrega bienes/servicios **sin recibir pago previo**, porque la compra es crítica y a crédito.
 
-No permite facturar ni cerrar la compra.
+Esto **solo está permitido en compras críticas**.
 
-5. Entrega sin pago (crédito)
+---
 
-El proveedor entrega los bienes o realiza el servicio sin haber recibido pago, porque la compra es a crédito.
+## **6. Recepción preliminar**
 
-Esto solo se permite por ser compra crítica: la prioridad es resolver la urgencia operativa.
+Se registra una recepción **preliminar**, porque:
 
-6. Recepción preliminar
+- No existe precio final  
+- No existe OC normal  
 
-Se registra una recepción preliminar, ligada a la OC preliminar.
+La recepción preliminar:
 
-Sucede porque:
+- Debe validarse máximo en **72 horas**  
+- No sirve para conciliación hasta que se vuelva formal  
 
-Aún no existe precio final.
+---
 
-Aún no existe OC normal.
+## **7. Definir precio final**
 
-La recepción preliminar debe validarse en un máximo de 72 horas y no sirve para conciliación hasta que se vuelva formal.
+El proveedor confirma el **precio final real**.  
+La OC preliminar se actualiza con el monto correcto.
 
-7. Definir precio final
+Sin precio final **no puede ocurrir autorización retroactiva**.
 
-Una vez realizado el servicio o entregado el material, el proveedor confirma el precio final real.
+---
 
-Con ese dato:
+## **8. Completar cotizaciones o justificar excepción**
 
-Se actualiza la OC preliminar con el precio final.
+Antes de autorizar retroactivamente, deben completarse cotizaciones o justificar por qué no fue posible:
 
-Se cierra la etapa de “monto estimado”.
+- Urgencia crítica  
+- OEM / único proveedor  
+- Inventario inmediato  
+- Riesgo operativo  
 
-Sin precio final no puede existir autorización retroactiva por montos.
+Se registra:
 
-8. Completar cotizaciones o justificar excepción
+- Proveedor elegido  
+- Motivo de excepción  
+- Responsable que autorizó  
 
-Antes de autorizar retroactivamente, el área de compras completa las cotizaciones mínimas o documenta la excepción.
+---
 
-Opciones:
+## **9. Autorización retroactiva por montos**
 
-Completar las cotizaciones según rangos normales.
+Como el monto real se conoció después, la autorización ocurre aquí.
 
-O justificar por qué no fue posible obtenerlas (urgencia crítica, único proveedor disponible, OEM, inventario inmediato, riesgo operativo, etc.).
+**Rangos Taller:**
 
-Se debe registrar:
+- ≤ 20,000 → Jefe de Área  
+- 20,001–50,000 → Director  
+- > 50,000 → Director General  
 
-Proveedor elegido.
+---
 
-Motivo de la excepción.
+## **10. Convertir a OC normal**
 
-Responsable que autorizó continuar con esa excepción.
+Una vez autorizado retroactivamente:
 
-9. Autorización retroactiva por montos
+- Se genera la **OC normal**  
+- Se sustituye la OC preliminar  
+- El precio final queda formalizado  
 
-Ya con el precio final definido y cotizaciones/comparativos listos (o excepciones documentadas), se aplica la autorización por montos de forma retroactiva.
+---
 
-Rangos Taller:
+## **11. Recepción formal**
 
-≤ 20k → Jefe de Área.
+La recepción preliminar se convierte en **recepción formal**, vinculada ahora a la OC normal.
 
-20–50k → Director de Área.
+Validaciones:
 
-50k → Director General.
+- Cantidades  
+- Calidad  
+- Especificación técnica  
 
-Esta autorización se hace aquí porque la compra avanzó por urgencia y el monto real solo se conoció después.
+---
 
-10. Conversión a OC normal
+## **12. Factura**
 
-Con el precio final, cotizaciones (o excepciones) y autorización retroactiva aprobada, la OC preliminar se convierte en OC normal.
+El proveedor emite la factura y debe coincidir con:
 
-A partir de ahora:
+- OC normal  
+- Recepción formal  
 
-La OC normal es el documento contractual definitivo.
+Diferencias detienen el flujo.
 
-Cualquier cambio de precio requeriría nueva autorización.
+---
 
-11. Recepción formal
+## **13. Programar pago (CxP)**
 
-Una vez que ya existe OC normal y precio final, la recepción puede ser formal.
+Con factura válida, se genera la **Cuenta por Pagar**:
 
-El sistema:
+- Se agenda según condiciones de crédito  
+- No puede existir CxP sin factura correcta  
 
-Toma la recepción preliminar existente.
+---
 
-La vincula a la OC normal.
+## **14. Conciliación tripartita**
 
-Cambia su estado de preliminar a formal, conservando cantidades y detalles técnicos.
+Para cerrar la compra deben coincidir:
 
-Solo esta recepción formal sirve para la conciliación tripartita.
+1. OC vs Recepción  
+2. OC vs Factura  
+3. Factura vs CxP  
 
-12. Factura
+---
 
-El proveedor emite la factura con base en el precio final y lo efectivamente recibido.
+## **15. Cierre de la compra**
 
-La factura debe coincidir con:
+La OC se cierra **solo** cuando la conciliación está completa.  
+El pago o la recepción **no cierran** la compra por sí solos.
 
-La OC normal.
+---
 
-La recepción formal.
+# **Diagrama del flujo**
 
-Si hay diferencias, el flujo se detiene hasta corregir o justificar.
-
-13. Programar pago (CxP)
-
-Con la factura validada, se genera el documento por pagar (CxP) según las condiciones de crédito pactadas.
-
-Reglas:
-
-Sin factura válida no existe CxP.
-
-La CxP se programa en el calendario de pagos.
-
-14. Conciliación tripartita
-
-Antes de cerrar la compra, el sistema realiza la conciliación tripartita:
-
-OC vs Recepción (ya formal).
-
-OC vs Factura.
-
-Factura vs CxP.
-
-Candado maestro:
-Ni la recepción preliminar, ni la OC, ni la programación de pago cierran la compra.
-Solo la conciliación completa permite el cierre.
-
-15. Cierre de la compra
-
-Una vez que la conciliación tripartita es correcta, la OC se marca como Cerrada.
-
-La compra queda sin pendientes:
-
-Sin diferencias de cantidades.
-
-Sin diferencias de precio.
-
-Sin saldos abiertos de CxP asociados a esa OC.
-
-Diagrama del flujo
 flowchart TD
 
 T["Flujo 6 - CRITICO + CREDITO - TALLER - SIN PRECIO FINAL"]
 
-subgraph F6[" "]
+subgraph F6[" "]  
 direction TB
 
 R1["1. Requisicion  
