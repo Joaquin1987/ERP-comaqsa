@@ -1,3 +1,4 @@
+```mermaid
 flowchart TD
 
 subgraph F1["Flujo #1 — NORMAL + CRÉDITO — TALLER"]
@@ -29,3 +30,4 @@ R7 --> R8
 R8 --> R9
 R9 --> R10
 R10 --> R11
+```
