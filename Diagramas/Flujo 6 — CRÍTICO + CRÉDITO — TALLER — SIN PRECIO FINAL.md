@@ -187,13 +187,14 @@ El pago o la recepción **no cierran** la compra por sí solos.
 
 ---
 
-# **Diagrama del flujo**
+## **Diagrama del flujo**
 
+```mermaid
 flowchart TD
 
 T["Flujo 6 - CRITICO + CREDITO - TALLER - SIN PRECIO FINAL"]
 
-subgraph F6[" "]  
+subgraph F6[" "]
 direction TB
 
 R1["1. Requisicion  
