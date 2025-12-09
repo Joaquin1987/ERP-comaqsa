@@ -313,19 +313,18 @@ Aunque exista precio final, la compra crítica **siempre inicia con OC prelimina
 
 # DIAGRAMA MERMAID (FUNCIONAL Y RENDERIZABLE)
 
-```mermaid
 flowchart TD
 
-A[1. Requisición] --> B[2. Validación Técnica<br>Se marca CRÍTICA]
-B --> C[3. Cotizaciones opcionales]
-C --> D[4. Validación económica inicial<br>(Concepto o No-concepto)]
-D --> E[5. OC Preliminar]
-E --> F[6. Entrega sin pago]
-F --> G[7. Completar cotizaciones<br>o justificar excepción]
-G --> H[8. Autorización retroactiva<br>(si aplica)]
-H --> I[9. Convertir a OC Normal]
-I --> J[10. Recepción Formal]
-J --> K[11. Factura]
-K --> L[12. Programar Pago CxP]
-L --> M[13. Conciliación Tripartita]
-M --> N[14. Cierre de la OC]
+A["1. Requisición"] --> B["2. Validación Técnica<br/>Se marca CRÍTICA"]
+B --> C["3. Cotizaciones opcionales"]
+C --> D["4. Validación económica inicial<br/>(Concepto o No-concepto)"]
+D --> E["5. OC Preliminar"]
+E --> F["6. Entrega sin pago"]
+F --> G["7. Completar cotizaciones<br/>o justificar excepción"]
+G --> H["8. Autorización retroactiva<br/>(si aplica)"]
+H --> I["9. Convertir a OC Normal"]
+I --> J["10. Recepción Formal"]
+J --> K["11. Factura"]
+K --> L["12. Programar Pago CxP"]
+L --> M["13. Conciliación Tripartita"]
+M --> N["14. Cierre de la OC"]
