@@ -1,325 +1,392 @@
-# **#8 FLUJO COMPLETO — CRÍTICO + CONTADO — TALLER — SIN PRECIO FINAL**  
-*(Documento oficial COMAQSA — Formato GitHub — Basado estrictamente en el archivo #8)* :contentReference[oaicite:0]{index=0}
+# **#8 FLUJO COMPLETO — CRÍTICO + CONTADO — TALLER — SIN PRECIO FINAL**
 
-> **Caso #8 del listado maestro**  
-> **Crítico + Contado — Taller — SIN precio final**  
+> **Caso #8 del listado oficial:**  
+> **Crítico + Contado – Taller – SIN precio final.**  
 >  
-> Como **NO existe precio final desde el inicio**, este flujo es un **flujo crítico completo**, con:  
-> - OC preliminar obligatoria  
-> - Anticipo/pago estimado  
-> - Entrega anticipada  
-> - Recepción preliminar  
-> - Definición posterior del precio final  
-> - Autorización retroactiva por montos  
-> - Conversión a OC normal  
-> - Conversión de recepción preliminar a formal  
-> - Conciliación tripartita obligatoria  
-> - Cierre solo con conciliación completa  
+> Como **NO existe precio final desde el inicio**, este flujo es el  
+> **crítico completo**, con: OC preliminar obligatoria, anticipo estimado,  
+> entrega urgente, recepción preliminar, definición posterior de precio,  
+> autorización retroactiva, conversión a OC normal y conciliación tripartita.
 
 ---
 
-# **1. REQUISICIÓN**
+## 1. REQUISICIÓN
 
 **Actor:** Usuario solicitante  
-**Estado:** Pendiente  
+**Estado del sistema:** Pendiente  
 
-**Inputs:** descripción, cantidades, especificaciones, motivo.  
+**Inputs:** descripción, cantidades, especificaciones, motivo.
 
 **Reglas / Candados:**
 
 - La requisición es obligatoria para iniciar cualquier compra.
 
-**Output:** Requisición creada.
+**Output del sistema:** Requisición creada.
 
 ---
 
-# **2. VALIDACIÓN TÉCNICA (VT)**
+## 2. VALIDACIÓN TÉCNICA (VT)
 
 **Actor:** Jefe de área  
-**Estado:** Requisición validada  
+**Estado del sistema:** Requisición validada  
 
-**Acciones:**  
-- Confirmar necesidad real  
-- Revisar especificaciones  
-- Ajustar cantidades si corresponde  
+**Acciones:**
 
-**Candado crítico:**  
+- Confirmar necesidad real.  
+- Revisar especificaciones.  
+- Ajustar cantidades si corresponde.
+
+**Candado crítico:**
+
 - Aquí se **marca como CRÍTICA**.  
-- El sistema registra:  
-  - Responsable  
-  - Motivo  
-  - Urgencia operativa  
-- Al marcar crítica se habilitan:  
-  - **OC preliminar**  
-  - **Anticipos sin precio final**  
-  - **Recepción preliminar**  
-  - **Entrega antes de autorización**  
-  - **Autorización retroactiva por montos**
+- El sistema registra: responsable, motivo y urgencia operativa.  
+- Al marcar crítica se habilita:
+  - OC preliminar  
+  - Recepción preliminar  
+  - Entrega antes de autorización completa  
+  - Anticipos sin precio final  
+  - Autorización retroactiva  
 
-**Output:** Requisición validada y marcada como crítica.
+**Output del sistema:** Requisición validada técnicamente y marcada como crítica.
 
 ---
 
-# **3. COTIZACIONES (OPCIONALES POR URGENCIA)**
+## 3. COTIZACIONES (OPCIONALES POR URGENCIA)
 
-**Estado:** En cotización  
+**Estado del sistema:** En cotización  
 
-**Reglas:**  
-- En compra crítica **NO se exige completar cotizaciones al inicio**.  
-- Puede existir una cotización o incluso ninguna.  
-- Las cotizaciones faltantes se completarán después o se justificarán.
+**Reglas:**
 
-**Output:** Cotizaciones cargadas o justificación de urgencia.
+- En compra crítica, **NO se exige completar cotizaciones al inicio**.  
+- Puede haber **1 cotización o incluso ninguna**.  
+- Cotizaciones faltantes se completarán después o se justificarán.
+
+**Output del sistema:** Cotizaciones cargadas o justificación de urgencia.
 
 ---
 
-# **4. ORDEN DE COMPRA PRELIMINAR (OC PRELIMINAR)**
+## 4. ORDEN DE COMPRA PRELIMINAR (OC PRELIMINAR)
 
-**Estado:** OC preliminar emitida  
+**Estado del sistema:** OC preliminar emitida  
 
-**Características:**  
+**Características:**
+
 - Obligatoria en compra crítica.  
-- **No existe precio final**, por lo cual **NO puede generarse OC normal** todavía.  
+- **No existe precio final**, por eso **NO se puede emitir OC normal**.  
 - Permite separar mercancía o solicitar servicio inmediato.  
-- **No permite facturar.**
+- **No permite facturar**.
 
-**Output:** OC preliminar generada.
-
----
-
-# **5. ANTICIPO ESTIMADO (SOLICITUD + PAGO)**
-
-**Estado:** Solicitud de pago y pago registrado  
-
-**Reglas:**  
-- En crítico + contado, el proveedor exige anticipo antes de la entrega.  
-- Como **NO existe precio final**, el pago se basa en **monto estimado**.  
-- El pago anticipado **NO cierra la compra**.
-
-**Output:** Pago anticipado aplicado.
+**Output del sistema:** OC preliminar generada.
 
 ---
 
-# **6. ENTREGA / SERVICIO**
+## 5. ANTICIPO ESTIMADO (SOLICITUD + PAGO)
 
-**Estado:** En recepción  
+**Estado del sistema:** Solicitud de pago y pago registrado  
 
-**Acciones:**  
-- El proveedor entrega bienes/servicios **después del anticipo**.
+**Reglas:**
 
-**Candado:**  
-- En contado **NO hay entrega sin pago previo**.
+- En crítico + contado, el proveedor exige anticipo o pago total **antes de la entrega**.  
+- Como **no existe precio final**, el anticipo se basa en un monto **estimado**.  
+- El pago se registra contra la OC preliminar.  
+- **El pago NO cierra la compra.**
 
-**Output:** Entrega realizada.
-
----
-
-# **7. RECEPCIÓN PRELIMINAR**
-
-**Estado:** Recepción preliminar registrada  
-
-**Razones:**  
-- NO existe precio final.  
-- NO existe OC normal.  
-
-**Reglas críticas:**  
-- La recepción preliminar **debe validarse dentro de 72 horas**.  
-- Será convertida a **recepción formal** cuando se genere la OC normal.
-
-**Output:** Recepción preliminar concluida.
+**Output del sistema:** Pago anticipado estimado aplicado.
 
 ---
 
-# **8. DEFINIR PRECIO FINAL**
+## 6. ENTREGA / SERVICIO
 
-**Estado:** En ajuste de precio  
+**Estado del sistema:** En recepción  
 
-**Acciones:**  
-- El proveedor confirma el **precio final real**.  
-- Se actualiza la OC preliminar con ese monto.
+**Acciones:**
 
-**Candado clave:**  
-> **Sin precio final NO puede existir autorización retroactiva.**
+- El proveedor entrega bienes/servicios después del anticipo.
 
-**Output:** Precio final definido.
+**Candado:**
+
+- En contado **NO hay entrega sin pago previo** (aunque sea estimado).
+
+**Output del sistema:** Entrega realizada.
 
 ---
 
-# **9. COMPLETAR COTIZACIONES O JUSTIFICAR EXCEPCIÓN**
+## 7. RECEPCIÓN PRELIMINAR
 
-**Estado:** Validación documental  
+**Estado del sistema:** Recepción preliminar registrada  
 
-**Reglas:**  
-Para autorizar retroactivamente se deben:  
-- Completar cotizaciones mínimas **o**  
-- Registrar justificación de excepción:  
+**Razones:**
+
+- No existe precio final.  
+- No existe OC normal.
+
+**Reglas críticas:**
+
+- La recepción preliminar **debe validarse en máximo 72 horas**.  
+- Esta recepción **no es definitiva**.  
+- Cuando se emita la OC normal, esta recepción **deberá convertirse en recepción formal**.
+
+**Output del sistema:** Recepción preliminar concluida.
+
+---
+
+## 8. DEFINIR PRECIO FINAL
+
+**Estado del sistema:** En ajuste de precio  
+
+**Acciones:**
+
+- El proveedor confirma el precio real final.  
+- Se actualiza la OC preliminar con el precio final.
+
+**Candados:**
+
+- Sin precio final **no puede existir autorización retroactiva**.
+
+**Output del sistema:** Precio final definido.
+
+---
+
+## 9. COMPLETAR COTIZACIONES O JUSTIFICAR EXCEPCIÓN
+
+**Estado del sistema:** En validación documental  
+
+**Reglas:**
+
+- Para autorizar retroactivamente se deben completar cotizaciones mínimas **o** justificar por qué no fue posible:
   - Urgencia crítica  
-  - Único proveedor  
+  - Único proveedor con inventario  
   - OEM  
-  - Inventario inmediato  
   - Riesgo operativo  
 
-**Registros obligatorios:**  
+**Registro obligatorio:**
+
 - Proveedor elegido  
 - Motivo de excepción  
 - Responsable que autorizó  
 
-**Output:** Cotizaciones completas o excepción registrada.
+**Output del sistema:** Cotizaciones completas o excepción registrada.
 
 ---
 
-# **10. AUTORIZACIÓN RETROACTIVA POR MONTOS (TALLER)**
+## 10. AUTORIZACIÓN RETROACTIVA POR MONTOS (TALLER)
 
-**Estado:** En autorización  
+**Estado del sistema:** En autorización  
 
-**Rangos TALLER:**  
+**Rangos Taller:**
+
 - Hasta $20,000 → Jefe de Área  
 - $20,001–$50,000 → Director de Área  
 - Más de $50,000 → Director General  
 
-**Reglas:**  
-- La compra es crítica.  
-- El precio final se conoció después, por lo que la autorización ocurre aquí.
+**Reglas:**
 
-**Output:** Compra autorizada retroactivamente.
+- La compra es crítica y el precio final se conoció después, por eso la autorización ocurre aquí.  
+- Se aplican los mismos rangos que en flujo normal, pero de forma **retroactiva**.
 
----
-
-# **11. CONVERTIR A OC NORMAL**
-
-**Estado:** OC normal emitida  
-
-**Condiciones:**  
-- Precio final definido  
-- Autorización retroactiva aprobada  
-- Cotizaciones completas o justificadas  
-
-**Acciones automáticas:**  
-- Se emite la OC normal definitiva.
-
-**Output:** OC normal generada.
+**Output del sistema:** Compra autorizada retroactivamente.
 
 ---
 
-# **12. CONVERTIR RECEPCIÓN PRELIMINAR A RECEPCIÓN FORMAL**
+## 11. CONVERTIR A OC NORMAL
 
-**Estado:** Recepción formal registrada  
+**Estado del sistema:** OC normal emitida  
 
-**Acción del ERP:**  
-- La recepción preliminar se **convierte automáticamente en recepción formal**  
-  al existir OC normal y precio final.
+**Condiciones:**
 
-**Output:** Recepción formal concluida.
+- Precio final definido.  
+- Autorización retroactiva aprobada.  
+- Cotizaciones completas o justificadas.
+
+**Acciones automáticas del sistema:**
+
+- La OC preliminar se convierte en **OC normal**.  
+- La recepción preliminar asociada se **convierte automáticamente en recepción formal**:
+  - Misma cantidad y artículos.  
+  - Ya con precio final amarrado a la OC normal.  
+- A partir de aquí, la **recepción formal** es la que se usa en conciliación.
+
+**Output del sistema:** OC normal generada y recepción formal creada.
 
 ---
 
-# **13. FACTURA**
+## 12. PAGO COMPLEMENTARIO (SI APLICA)
 
-**Estado:** En espera de conciliación  
+**Estado del sistema:** Pago registrado  
 
-**Reglas:**  
-- La factura debe coincidir con:  
+**Reglas:**
+
+- Si el precio final es mayor al anticipo estimado, se genera un **pago complementario**.  
+- Si el precio final resulta menor, el sistema registra saldo a favor o nota de crédito.  
+- Todos los pagos (anticipo + complementarios) se asocian a la misma OC normal.
+
+**Output del sistema:** Pago(s) complementarios aplicados.
+
+---
+
+## 13. FACTURA
+
+**Estado del sistema:** En espera de conciliación  
+
+**Reglas:**
+
+- La factura debe coincidir con:
   - OC normal  
-  - Recepción formal  
-- Cualquier diferencia detiene el flujo.
+  - Recepción **formal** (antes preliminar)  
+  - Precio final  
+- Diferencias detienen el flujo hasta corregir o justificar.
 
-**Output:** Factura aceptada.
-
----
-
-# **14. CONCILIACIÓN TRIPARTITA**
-
-**Estado:** En conciliación  
-
-Debe coincidir exactamente:  
-1. **OC vs Recepción formal**  
-2. **OC vs Factura**  
-3. **Factura vs Pago (contado)**  
-
-**Candado maestro:**  
-> **El pago NO cierra la compra.  
-> Solo la conciliación completa cierra la OC.**
-
-**Output:** Conciliación completada.
+**Output del sistema:** Factura registrada.
 
 ---
 
-# **15. CIERRE DE LA OC**
+## 14. CONCILIACIÓN TRIPARTITA
 
-**Estado:** Cerrada  
+**Estado del sistema:** En conciliación  
 
-**Reglas:**  
-- El flujo solo cierra con conciliación tripartita.  
-- No puede cerrarse por pago, entrega o factura aislados.
+Debe coincidir estrictamente:
 
-**Output:** OC cerrada correctamente.
+- **OC vs Recepción formal**  
+- **OC vs Factura**  
+- **Factura vs Pago** (anticipo + complementarios)
+
+**Candado maestro:**
+
+- Ni los pagos ni la recepción preliminar ni la recepción formal, por sí solos, cierran la compra.  
+- **Solo la conciliación completa puede cerrarla.**
+
+**Output del sistema:** Conciliación correcta.
 
 ---
 
-# **DIAGRAMA MERMAID (FUNCIONAL PARA GITHUB)**
+## 15. CIERRE DE LA COMPRA
+
+**Estado del sistema:** Cerrada  
+
+**Condiciones:**
+
+- Conciliación tripartita completada y sin diferencias pendientes.
+
+**Output del sistema:** Compra cerrada y sin pendientes.
+
+---
+
+# RESUMEN DEL FLUJO (FORMATO ESTÁNDAR)
+
+1. Requisición  
+2. Validación técnica (se marca CRÍTICA)  
+3. Cotizaciones opcionales por urgencia  
+4. OC preliminar  
+5. Anticipo estimado (solicitud + pago)  
+6. Entrega  
+7. Recepción preliminar  
+8. Definir precio final  
+9. Completar cotizaciones o justificar excepción  
+10. Autorización retroactiva por montos  
+11. Convertir a OC normal **y convertir recepción preliminar en recepción formal**  
+12. Pago complementario (si aplica)  
+13. Factura  
+14. Conciliación tripartita  
+15. Cierre de la compra  
+
+---
+
+# DIAGRAMA MERMAID (RENDERIZABLE EN GITHUB)
 
 ```mermaid
 flowchart TD
 
-A1["1. Requisición  
+F8["Flujo 8 - CRÍTICO + CONTADO - TALLER - SIN PRECIO FINAL"]
+
+subgraph CRIT_CONT_TALLER_8[" "]
+direction TB
+
+N1["1. Requisición  
+Actor: Solicitante  
 Estado: Pendiente"]
 
-A2{"2. Validación Técnica  
-¿Se marca CRÍTICA?"}
+N2["2. Validación Técnica  
+Actor: Jefe de área  
+Requisición marcada como CRÍTICA  
+Se habilita:  
+- OC preliminar  
+- Recepción preliminar  
+- Entrega antes de autorización  
+- Anticipos sin precio final  
+- Autorización retroactiva"]
 
-A3["Requisición marcada como CRÍTICA"]
+N3["3. Cotizaciones opcionales  
+(NO obligatorias al inicio)"]
 
-A4["3. Cotizaciones opcionales  
-(Urgencia crítica)"]
+N4["4. OC PRELIMINAR  
+No hay precio final  
+No se puede facturar"]
 
-A5["4. OC PRELIMINAR  
-No existe precio final"]
+N5["5. Anticipo ESTIMADO  
+Pago de contado basado en monto estimado  
+Registrado contra OC preliminar  
+El pago NO cierra la compra"]
 
-A6["5. Anticipo estimado  
-(Sin precio final)"]
+N6["6. Entrega del proveedor  
+Después del anticipo  
+En contado no hay entrega sin pago"]
 
-A7["6. Entrega del proveedor  
-(Contado → no entrega sin pago)"]
+N7["7. Recepción PRELIMINAR  
+No hay precio final ni OC normal  
+Debe validarse en máximo 72 h  
+No es definitiva"]
 
-A8["7. Recepción PRELIMINAR  
-Debe validarse en 72 h"]
+N8["8. Definir precio final  
+Proveedor confirma monto real  
+Se actualiza la OC preliminar"]
 
-A9["8. Definir precio final"]
+N9["9. Completar cotizaciones  
+o registrar excepción  
+(Urgencia, OEM, único proveedor, etc.)"]
 
-A10["9. Completar cotizaciones  
-o justificar excepción"]
+N10["10. Autorización RETROACTIVA por montos  
+Taller:  
+<=20k Jefe área  
+20-50k Director  
+>50k Director General"]
 
-A11["10. Autorización retroactiva por montos  
-Taller: 20k / 50k / DG"]
+N11["11. Convertir a OC NORMAL  
+Convertir recepción PRELIMINAR  
+en recepción FORMAL  
+Recepción formal será la base de conciliación"]
 
-A12["11. Convertir a OC Normal"]
+N12["12. Pago complementario (si aplica)  
+Si precio final > anticipo → pago extra  
+Si precio final < anticipo → saldo a favor / nota de crédito"]
 
-A13["12. Convertir recepción preliminar  
-a recepción FORMAL"]
+N13["13. Factura  
+Debe coincidir con OC normal  
+y recepción formal  
+Diferencias detienen el flujo"]
 
-A14["13. Factura  
-Debe coincidir con OC y recepción"]
+N14["14. Conciliación tripartita  
+OC vs Recepción formal  
+OC vs Factura  
+Factura vs Pago (anticipo + complementarios)"]
 
-A15["14. Conciliación tripartita  
-OC vs Recepción vs Factura vs Pago"]
+N15["15. Cierre de la compra  
+Solo con conciliación completa  
+Ni pago ni recepción cierran por sí solos"]
 
-A16["15. Cierre de OC  
-Solo con conciliación completa"]
+end
 
-A1 --> A2
-A2 -->|Sí, es crítica| A3
-A3 --> A4
-A4 --> A5
-A5 --> A6
-A6 --> A7
-A7 --> A8
-A8 --> A9
-A9 --> A10
-A10 --> A11
-A11 --> A12
-A12 --> A13
-A13 --> A14
-A14 --> A15
-A15 --> A16
-
-A2 -->|No crítica| NORM["Se va al flujo Normal + Contado (Taller)"]
+F8 --> N1
+N1 --> N2
+N2 --> N3
+N3 --> N4
+N4 --> N5
+N5 --> N6
+N6 --> N7
+N7 --> N8
+N8 --> N9
+N9 --> N10
+N10 --> N11
+N11 --> N12
+N12 --> N13
+N13 --> N14
+N14 --> N15
