@@ -291,7 +291,7 @@ Debe coincidir estrictamente:
 
 ---
 
-# DIAGRAMA MERMAID (RENDERIZABLE EN GITHUB)
+# DIAGRAMA 
 
 ```mermaid
 flowchart TD
