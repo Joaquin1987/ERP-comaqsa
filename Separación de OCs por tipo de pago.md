@@ -23,11 +23,11 @@ estimaciones, pagos y finiquitos.
 
 ## Reglas de Negocio
 
-RN-001
+### RN-001
 
 Al crear una obra se genera automáticamente una OC Madre asociada a dicha obra.
 
-RN-002
+## RN-002
 
 La OC Madre conserva permanentemente el monto original contratado y este valor nunca debe sobrescribirse.
 
