@@ -149,14 +149,12 @@ Cerrada
 
 ## Flujo Operativo
 
+```mermaid
 flowchart TD
 
 A[Alta de Obra] --> B[Crear OC Madre]
-
 B --> C[Capturar Contrato Original]
-
 C --> D[Registrar Estimaciones]
-
 D --> E[Registrar Pagos]
 
 E --> F{Tipo de Pago}
@@ -165,44 +163,84 @@ F --> G[Transferencia]
 F --> H[Efectivo]
 F --> I[Otro]
 
-G --> J[Crear o actualizar OC Auxiliar]
-H --> J
-I --> J
+G --> J{Existe OC Auxiliar Transferencia?}
+J -->|No| K[Crear OC Auxiliar Transferencia]
+J -->|Si| L[Aplicar pago a OC Transferencia]
+K --> L
 
-J --> K[Actualizar acumulados]
+H --> M{Existe OC Auxiliar Efectivo?}
+M -->|No| N[Crear OC Auxiliar Efectivo]
+M -->|Si| O[Aplicar pago a OC Efectivo]
+N --> O
 
-K --> L{¿Es Finiquito?}
+I --> P{Existe OC Auxiliar de ese tipo?}
+P -->|No| Q[Crear OC Auxiliar correspondiente]
+P -->|Si| R[Aplicar pago a OC Auxiliar]
+Q --> R
 
-L -->|No| D
+L --> S[Actualizar acumulados]
+O --> S
+R --> S
 
-L -->|Sí| M[Registrar Finiquito]
+S --> T{Es Finiquito?}
 
-M --> N[Calcular Monto Final Ejecutado]
+T -->|No| D
+T -->|Si| U[Registrar Finiquito]
 
-N --> O[Actualizar Monto Final Finiquitado]
+U --> V[Calcular Monto Final Ejecutado]
+V --> W[Actualizar OC Madre con Monto Final Finiquitado]
+W --> X[Calcular diferencia contra Contrato Original]
 
-O --> P[Conciliar OCs Auxiliares]
+X --> Y{Monto Final vs Original}
 
-P --> Q{¿Conciliación correcta?}
+Y -->|Menor| Z[Registrar deductiva o volumen no ejecutado]
+Y -->|Igual| AA[Sin ajuste contractual]
+Y -->|Mayor| AB[Registrar adicional o excedente autorizado]
 
-Q -->|No| R[Revisar diferencias]
+Z --> AC[Conciliar OCs Auxiliares contra Monto Final]
+AA --> AC
+AB --> AC
 
-R --> P
+AC --> AD{Suma OCs Auxiliares = Monto Final?}
 
-Q -->|Sí| S[Cerrar Obra]
+AD -->|No| AE[Revisar diferencias y ajustar]
+AE --> AC
 
-S --> T[Fin]
+AD -->|Si| AF{Pagos = Monto Final o Saldo Autorizado?}
+
+AF -->|No| AG[Registrar saldo pendiente o diferencia]
+AG --> AH[Obra en proceso de cierre]
+
+AF -->|Si| AI[Cerrar Obra como Finiquitada y Conciliada]
+
+AH --> AJ[Fin]
+AI --> AJ
+```
 
 ---
 
 ## Casos Especiales
 
-Finiquito menor al contrato original.
+CE-001 Finiquito menor al contrato original
 
-Finiquito mayor al contrato original.
+El monto final ejecutado es inferior al monto contratado originalmente.
 
-Pagos mixtos.
+CE-002 Finiquito mayor al contrato original
 
-Pagos posteriores al finiquito.
+El monto final ejecutado supera el monto contratado originalmente.
 
-Cancelación de estimaciones.
+CE-003 Pagos mixtos
+
+Una misma estimación se paga mediante múltiples tipos de pago.
+
+CE-004 Ajustes posteriores al finiquito
+
+El sistema debe permitir reabrir conciliación bajo autorización.
+
+CE-005 Cancelación de estimaciones
+
+La cancelación debe conservar trazabilidad histórica y recalcular saldos.
+
+CE-006 Cambio de clasificación de pago
+
+Un pago podrá reclasificarse entre OCs Auxiliares conservando bitácora de auditoría.
