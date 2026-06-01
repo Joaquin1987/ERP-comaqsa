@@ -149,7 +149,49 @@ Cerrada
 
 ## Flujo Operativo
 
-(diagrama Mermaid)
+flowchart TD
+
+A[Alta de Obra] --> B[Crear OC Madre]
+
+B --> C[Capturar Contrato Original]
+
+C --> D[Registrar Estimaciones]
+
+D --> E[Registrar Pagos]
+
+E --> F{Tipo de Pago}
+
+F --> G[Transferencia]
+F --> H[Efectivo]
+F --> I[Otro]
+
+G --> J[Crear o actualizar OC Auxiliar]
+H --> J
+I --> J
+
+J --> K[Actualizar acumulados]
+
+K --> L{¿Es Finiquito?}
+
+L -->|No| D
+
+L -->|Sí| M[Registrar Finiquito]
+
+M --> N[Calcular Monto Final Ejecutado]
+
+N --> O[Actualizar Monto Final Finiquitado]
+
+O --> P[Conciliar OCs Auxiliares]
+
+P --> Q{¿Conciliación correcta?}
+
+Q -->|No| R[Revisar diferencias]
+
+R --> P
+
+Q -->|Sí| S[Cerrar Obra]
+
+S --> T[Fin]
 
 ---
 
